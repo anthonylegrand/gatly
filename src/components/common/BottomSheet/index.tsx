@@ -3,15 +3,14 @@ import { useEffect, useRef } from "react";
 
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
+import ContentBottomSheet from "./content.bottomSheet";
 
 interface Props {
-  children: React.ReactNode;
   snapPoints?: string[];
   onDismiss?: () => void;
 }
 
 export default function BottomSheet({
-  children,
   snapPoints = ["20%", "45%"],
   onDismiss: handleDismiss,
 }: Props) {
@@ -25,7 +24,7 @@ export default function BottomSheet({
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
-      index={snapPoints.length - 1}
+      // index={snapPoints.length - 2}
       onDismiss={handleDismiss}
       snapPoints={snapPoints}
       enableDynamicSizing={false}
@@ -37,7 +36,7 @@ export default function BottomSheet({
         style={{ padding: Spacing.three }}
         contentContainerStyle={{ gap: Spacing.three }}
       >
-        {children}
+        <ContentBottomSheet />
       </BottomSheetScrollView>
     </BottomSheetModal>
   );

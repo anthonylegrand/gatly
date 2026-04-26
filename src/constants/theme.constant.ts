@@ -39,7 +39,13 @@ export const Colors = {
   },
 } as const;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+type RootColorKeys = {
+  [K in keyof typeof Colors]: (typeof Colors)[K] extends string ? K : never;
+}[keyof typeof Colors];
+
+export type ThemeColor =
+  | (keyof typeof Colors.light & keyof typeof Colors.dark)
+  | RootColorKeys;
 
 export const Fonts = Platform.select({
   ios: {
@@ -75,6 +81,8 @@ export const Spacing = {
   five: 32,
   six: 64,
 } as const;
+
+export type SpacingKey = keyof typeof Spacing;
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;

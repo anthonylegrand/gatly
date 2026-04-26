@@ -10,7 +10,7 @@ export default function Index() {
     <SafeAreaView>
       <ThemedText>Edit src/app/index.tsx to edit this screen.</ThemedText>
 
-      <TouchableOpacity onPress={() => router.push("/(tabs)/parking")}>
+      <TouchableOpacity onPress={() => router.dismissTo("/(tabs)/parking")}>
         <ThemedText>Press me</ThemedText>
       </TouchableOpacity>
     </SafeAreaView>
