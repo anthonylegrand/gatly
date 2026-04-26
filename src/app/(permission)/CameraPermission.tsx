@@ -1,14 +1,20 @@
+import { ThemedText } from "@/components/ui";
+import { Colors, Spacing } from "@/constants";
+import { useTheme } from "@/hooks/theme/useTheme";
+import { useRouter } from "expo-router";
 import { Camera } from "lucide-react-native";
 import { TouchableOpacity, View } from "react-native";
 import { useCameraPermission } from "react-native-vision-camera";
 
-import { ThemedText } from "@/components/ui";
-import { Colors, Spacing } from "@/constants/theme.constant";
-import { useTheme } from "@/hooks/theme/useTheme";
-
 export default function CameraPermissionScreen() {
+  const router = useRouter();
   const theme = useTheme();
-  const { requestPermission } = useCameraPermission();
+  const { hasPermission, requestPermission } = useCameraPermission();
+
+  if (hasPermission) {
+    router.push("/(tabs)/camera");
+    return null;
+  }
 
   return (
     <View
@@ -56,7 +62,10 @@ export default function CameraPermissionScreen() {
           alignItems: "center",
         }}
       >
-        <ThemedText type="default" style={{ color: "#FFFFFF", fontWeight: "600" }}>
+        <ThemedText
+          type="default"
+          style={{ color: "#FFFFFF", fontWeight: "600" }}
+        >
           Autoriser la caméra
         </ThemedText>
       </TouchableOpacity>
