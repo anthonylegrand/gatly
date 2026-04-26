@@ -3,30 +3,25 @@ import { useEffect, useRef } from "react";
 
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useAppStore } from "@/utils/store";
 import ContentBottomSheet from "./content.bottomSheet";
 
-interface Props {
-  snapPoints?: string[];
-  onDismiss?: () => void;
-}
-
-export default function BottomSheet({
-  snapPoints = ["20%", "45%"],
-  onDismiss: handleDismiss,
-}: Props) {
+export default function LicensePlateInfos() {
   const theme = useTheme();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const { selectedPlate, setSelectedPlate } = useAppStore();
 
   useEffect(() => {
-    bottomSheetRef.current?.present();
-  }, []);
+    if (selectedPlate) bottomSheetRef.current?.present();
+    else bottomSheetRef.current?.close();
+  }, [selectedPlate]);
 
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
-      // index={snapPoints.length - 2}
-      onDismiss={handleDismiss}
-      snapPoints={snapPoints}
+      index={1}
+      onDismiss={() => setSelectedPlate(null)}
+      snapPoints={["25%", "45%", "75%", "85%"]}
       enableDynamicSizing={false}
       enablePanDownToClose
       backgroundStyle={{ backgroundColor: theme.backgroundSheet }}
@@ -36,7 +31,7 @@ export default function BottomSheet({
         style={{ padding: Spacing.three }}
         contentContainerStyle={{ gap: Spacing.three }}
       >
-        <ContentBottomSheet />
+        {selectedPlate && <ContentBottomSheet plateData={selectedPlate} />}
       </BottomSheetScrollView>
     </BottomSheetModal>
   );

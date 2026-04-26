@@ -10,6 +10,8 @@ export const parkings = sqliteTable("parkings", {
     .notNull()
     .$defaultFn(() => Date.now()),
 });
+export type Parking = typeof parkings.$inferSelect;
+export type NewParking = typeof parkings.$inferInsert;
 
 export const plates = sqliteTable("plates", {
   id: text("id")
@@ -28,3 +30,5 @@ export const plates = sqliteTable("plates", {
     .notNull()
     .references(() => parkings.id),
 });
+export type Plate = typeof plates.$inferSelect;
+export type NewPlate = typeof plates.$inferInsert;

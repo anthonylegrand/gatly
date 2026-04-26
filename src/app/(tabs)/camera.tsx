@@ -1,26 +1,18 @@
-import BottomSheet from "@/components/common/BottomSheet";
 import { ThemedText } from "@/components/ui";
 import { Spacing } from "@/constants";
-import { useBottomSectionState } from "@/store/useBottomSectionStore";
+import { useAppStore } from "@/utils/store";
 import { TouchableOpacity, View } from "react-native";
 
 export default function CameraScreen() {
-  const { currentSection, toggleSection } = useBottomSectionState();
+  const { selectedPlate, setSelectedPlate } = useAppStore();
 
   return (
     <View style={{ padding: Spacing.three }}>
-      <TouchableOpacity onPress={() => toggleSection()}>
+      <TouchableOpacity>
         <ThemedText>
-          Open BottomSection {currentSection ? "Open" : "Closed"}
+          Open BottomSection {selectedPlate ? "Open" : "Closed"}
         </ThemedText>
       </TouchableOpacity>
-
-      {currentSection && (
-        <BottomSheet
-          snapPoints={["25%", "45%", "75%"]}
-          onDismiss={() => toggleSection(false)}
-        />
-      )}
     </View>
   );
 }
