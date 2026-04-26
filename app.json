@@ -8,10 +8,14 @@
     "scheme": "gatly",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Gatly a besoin d'accéder à la caméra pour scanner les plaques."
+      }
     },
     "android": {
       "package": "com.gatly.app",
+      "permissions": ["android.permission.CAMERA"],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -26,6 +30,13 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "Gatly a besoin d'accéder à la caméra pour scanner les plaques.",
+          "enableMicrophonePermission": false
+        }
+      ],
       [
         "expo-splash-screen",
         {
