@@ -12,33 +12,39 @@ import { Worklets } from "react-native-worklets-core";
 
 import type { Text } from "react-native-vision-camera-ocr-plus";
 
-import { detectPlate } from "@/utils/detectPlate";
+import { PLATE_COUNTRIES } from "@/constants";
+import { detectPlate, PlateDetectionResult } from "@/libs/plate-reader.lib";
 import { ScanOverlay } from "./overlay";
 
 const SCAN_REGION: ScanRegion = {
   left: "10%",
-  top: "42%",
+  top: "35%",
   width: "80%",
   height: "14%",
 };
 
+const FRAME_SKIP_THRESHOLD = 20;
+
 export function CameraScanner() {
   const device = useCameraDevice("back");
   const isFocused = useIsFocused();
-  const [scannedText, setScannedText] = useState<string | null>(null);
+  const [scannedText, setScannedText] = useState<PlateDetectionResult | null>(
+    null,
+  );
 
   const { scanText } = useTextRecognition({
     language: "latin",
-    frameSkipThreshold: 15,
+    frameSkipThreshold: FRAME_SKIP_THRESHOLD,
     scanRegion: SCAN_REGION,
+    useLightweightMode: true,
   });
 
   const handleResult = useCallback((result: Text) => {
     for (const block of result.blocks) {
-      const plate = detectPlate(block.blockText);
-      if (plate) {
-        console.log(`[block] "${block.blockText}" →`, plate);
-        setScannedText(plate);
+      const solutions = detectPlate(block.blockText, PLATE_COUNTRIES);
+      if (solutions.length > 0) {
+        console.log(`[block] "${block.blockText}" →`, solutions[0]);
+        setScannedText(solutions[0]);
         return;
       }
     }
@@ -69,7 +75,7 @@ export function CameraScanner() {
         frameProcessor={frameProcessor}
       />
 
-      <ScanOverlay />
+      <ScanOverlay region={SCAN_REGION} scannedText={scannedText} />
     </View>
   );
 }
