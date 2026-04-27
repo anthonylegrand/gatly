@@ -1,6 +1,8 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
 
+import { PLATE_COUNTRIES } from "@/constants/plate.constant";
+
 export const parkings = sqliteTable("parkings", {
   id: text("id")
     .primaryKey()
@@ -19,6 +21,9 @@ export const plates = sqliteTable("plates", {
     .$defaultFn(() => nanoid()),
   plate: text("plate").notNull(),
   customName: text("custom_name"),
+  country: text("country", {
+    enum: PLATE_COUNTRIES as [string, ...string[]],
+  }).notNull(),
   color: text("color"),
   isAuthorized: integer("is_authorized", { mode: "boolean" }),
   authorizedUntil: integer("authorized_until"),

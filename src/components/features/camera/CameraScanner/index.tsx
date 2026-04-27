@@ -1,5 +1,5 @@
 import { useIsFocused } from "expo-router";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import {
   Camera,
@@ -13,7 +13,8 @@ import { Worklets } from "react-native-worklets-core";
 import type { Text } from "react-native-vision-camera-ocr-plus";
 
 import { PLATE_COUNTRIES } from "@/constants";
-import { detectPlate, PlateDetectionResult } from "@/libs/plate-reader.lib";
+import { detectPlate } from "@/libs/plate-reader.lib";
+import { useAppStore } from "@/utils/store";
 import { ScanOverlay } from "./overlay";
 
 const SCAN_REGION: ScanRegion = {
@@ -28,9 +29,8 @@ const FRAME_SKIP_THRESHOLD = 20;
 export function CameraScanner() {
   const device = useCameraDevice("back");
   const isFocused = useIsFocused();
-  const [scannedText, setScannedText] = useState<PlateDetectionResult | null>(
-    null,
-  );
+  const { selectedPlate, setSelectedPlate } = useAppStore();
+  const hasPlate = useRef(Worklets.createSharedValue(false));
 
   const { scanText } = useTextRecognition({
     language: "latin",
@@ -43,8 +43,8 @@ export function CameraScanner() {
     for (const block of result.blocks) {
       const solutions = detectPlate(block.blockText, PLATE_COUNTRIES);
       if (solutions.length > 0) {
-        console.log(`[block] "${block.blockText}" →`, solutions[0]);
-        setScannedText(solutions[0]);
+        hasPlate.current.value = true;
+        setSelectedPlate(solutions[0]);
         return;
       }
     }
@@ -58,11 +58,16 @@ export function CameraScanner() {
   const frameProcessor = useFrameProcessor(
     (frame) => {
       "worklet";
+      if (hasPlate.current.value) return;
       const result = scanText(frame);
       if (result?.resultText) handleResultOnJS(result);
     },
     [scanText, handleResultOnJS],
   );
+
+  useEffect(() => {
+    if (!selectedPlate) hasPlate.current.value = false;
+  }, [selectedPlate]);
 
   if (!device) return null;
 
@@ -75,7 +80,10 @@ export function CameraScanner() {
         frameProcessor={frameProcessor}
       />
 
-      <ScanOverlay region={SCAN_REGION} scannedText={scannedText} />
+      {/* #TODO Enlever display en remplacer scannedText par liste lest lecture
+      Pour annimer les estimation et calculs
+      Ajouter la liste des pays avec les quelles on hesite pour deselectionner certains */}
+      <ScanOverlay region={SCAN_REGION} scannedText={selectedPlate} />
     </View>
   );
 }

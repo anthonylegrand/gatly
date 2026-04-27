@@ -1,4 +1,7 @@
-export const PLATE_FORMATS = {
+export const PLATE_COUNTRIES = ["FR", "BE", "CH", "LU"];
+export type PlateCountry = (typeof PLATE_COUNTRIES)[number];
+
+export const PLATE_FORMATS: Record<PlateCountry, RegExp> = {
   FR: /^[A-HJ-NP-TV-Z]{2}-\d{3}-[A-HJ-NP-TV-Z]{2}$/,
   BE: /^[1-9]-[A-Z]{3}-\d{3}$/,
   CH: /^[A-Z]{2}\d{1,6}$/,
@@ -15,6 +18,3 @@ export const RECONSTRUCT: Record<PlateCountry, (n: string) => string | null> = {
   CH: (n) => (n.length >= 3 && n.length <= 8 ? n : null),
   LU: (n) => (n.length === 6 ? n : null),
 };
-
-export const PLATE_COUNTRIES = Object.keys(PLATE_FORMATS) as PlateCountry[];
-export type PlateCountry = keyof typeof PLATE_FORMATS;
