@@ -34,7 +34,7 @@ export default function Index() {
 
       <ThemedButton
         subtitle="Introduction"
-        onPress={() => router.push("/(intro)/Intro1")}
+        onPress={() => router.push("/(intro)/introScreen1")}
       >
         Commencer
       </ThemedButton>

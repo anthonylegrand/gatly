@@ -8,17 +8,20 @@ import { plateService } from "@/utils/services/plate.service";
 type AppState = {
   parkings: Parking[];
   loadParkings: () => Promise<Parking[]>;
-  createParking: (data: NewParking) => Promise<Parking>;
+  getParking: (id: string) => Promise<Parking | null>;
+  createParking: (data: Omit<NewParking, "id">) => Promise<Parking>;
+  updateParking: (id: string, data: Partial<NewParking>) => Promise<Parking>;
   removeParking: (id: string) => Promise<void>;
 
   plates: Plate[];
   loadPlates: () => Promise<Plate[]>;
+  getPlate: (idOrPlate: string) => Promise<Plate | null>;
   addPlate: (data: Omit<NewPlate, "parkingId">) => Promise<Plate>;
   updatePlate: (id: string, data: Partial<NewPlate>) => Promise<Plate>;
   removePlate: (id: string) => Promise<void>;
 
-  selectedParking: string | null;
-  setSelectedParking: (parkingId: string | null) => void;
+  selectedParking: Parking | null;
+  setSelectedParking: (parkingId: Parking | null) => void;
 
   selectedPlate: Plate | PlateDetectionResult | null;
   setSelectedPlate: (plate: Plate | PlateDetectionResult | null) => void;
@@ -31,16 +34,30 @@ export const useAppStore = create<AppState>()((set, get) => ({
     set({ parkings });
     return parkings;
   },
+  getParking: async (id) => {
+    let { parkings } = get();
+    if (parkings.length === 0) parkings = await get().loadParkings();
+    const parking = parkings.find((p) => p.id === id);
+    set({ selectedParking: parking });
+    return parking || null;
+  },
   createParking: async (data) => {
     const parking = await parkingService.create(data);
     const parkings = await parkingService.getAll();
-    set({ parkings });
+    set({ parkings, selectedParking: parking });
+    return parking;
+  },
+  updateParking: async (id, data) => {
+    const parking = await parkingService.update(id, data);
+    const parkings = await parkingService.getAll();
+    const wasSelected = get().selectedParking?.id === id;
+    set({ parkings, ...(wasSelected && { selectedParking: parking }) });
     return parking;
   },
   removeParking: async (id) => {
     await parkingService.remove(id);
     const parkings = await parkingService.getAll();
-    const wasSelected = get().selectedParking === id;
+    const wasSelected = get().selectedParking?.id === id;
     set({ parkings, ...(wasSelected && { selectedParking: null }) });
   },
 
@@ -50,22 +67,36 @@ export const useAppStore = create<AppState>()((set, get) => ({
     set({ plates });
     return plates;
   },
+  getPlate: async (idOrPlate) => {
+    let { plates } = get();
+    if (plates.length === 0) plates = await get().loadPlates();
+    const plate = plates.find(
+      (p) => p.id === idOrPlate || p.plate === idOrPlate,
+    );
+    set({ selectedPlate: plate });
+    return plate || null;
+  },
   addPlate: async (data) => {
     const { selectedParking } = get();
     if (!selectedParking) throw new Error("Aucun parking sélectionné");
 
     const plate = await plateService.add({
       ...data,
-      parkingId: selectedParking,
+      parkingId: selectedParking.id,
     });
     const plates = await plateService.getAll();
-    set({ plates });
+    set({ plates, selectedPlate: plate });
     return plate;
   },
   updatePlate: async (id, data) => {
     const plate = await plateService.update(id, data);
     const plates = await plateService.getAll();
-    set({ plates });
+
+    const selectedPlater = get().selectedPlate;
+    const wasSelected =
+      selectedPlater && "id" in selectedPlater && selectedPlater?.id === id;
+    set({ plates, ...(wasSelected && { selectedPlate: plate }) });
+
     return plate;
   },
   removePlate: async (id) => {

@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "db:migrate": "pnpm drizzle-kit generate"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.2.10",

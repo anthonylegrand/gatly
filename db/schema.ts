@@ -1,13 +1,14 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { nanoid } from "nanoid";
+import { nanoid } from "nanoid/non-secure";
 
-import { PLATE_COUNTRIES } from "@/constants/plate.constant";
+import { PLATE_COUNTRIES, type PlateCountry } from "@/constants/plate.constant";
 
 export const parkings = sqliteTable("parkings", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => nanoid()),
   name: text("name").notNull(),
+  countrys: text("countrys", { mode: "json" }).$type<PlateCountry[]>(),
   createdAt: integer("created_at")
     .notNull()
     .$defaultFn(() => Date.now()),

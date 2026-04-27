@@ -11,5 +11,8 @@ export const parkingRepository = {
 
   create: (data: NewParking) => db.insert(parkings).values(data).returning(),
 
+  update: (id: string, data: Partial<NewParking>) =>
+    db.update(parkings).set(data).where(eq(parkings.id, id)).returning(),
+
   remove: (id: string) => db.delete(parkings).where(eq(parkings.id, id)),
 };

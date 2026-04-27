@@ -14,7 +14,7 @@ export default function DatasPrivacy() {
       page={2}
       total={2}
       nextLabel="C'est parti"
-      onNext={() => router.dismissTo("/(setup)/UpsertParking")}
+      onNext={() => router.dismissTo("/(option)/parkingsList")}
     />
   );
 }
