@@ -1,13 +1,21 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { ParkingSquare, ScanLine } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import LicensePlateInfos from "@/components/common/LicensePlateInfos";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useAppStore } from "@/utils/store";
+import { useEffect } from "react";
 
 export default function TabLayout() {
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const theme = useTheme();
+  const { selectedParking } = useAppStore();
+
+  useEffect(() => {
+    if (!selectedParking) router.dismissTo("/(option)/parkingsList");
+  }, [selectedParking]);
 
   return (
     <>

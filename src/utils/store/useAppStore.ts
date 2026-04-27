@@ -63,7 +63,10 @@ export const useAppStore = create<AppState>()((set, get) => ({
 
   plates: [],
   loadPlates: async () => {
-    const plates = await plateService.getAll();
+    const { selectedParking } = get();
+    if (!selectedParking) throw new Error("Aucun parking sélectionné");
+
+    const plates = await plateService.getByParking(selectedParking.id);
     set({ plates });
     return plates;
   },

@@ -1,6 +1,7 @@
-import { Search } from "lucide-react-native";
+import { useRouter } from "expo-router";
+import { ChevronDown, Search, Settings2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { ScrollView, TextInput, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 
 import { Plate } from "@/../db/schema";
 import { Spacer } from "@/components/common/Spacer";
@@ -11,11 +12,11 @@ import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
 
 export default function ParkingScreen() {
+  const router = useRouter();
   const theme = useTheme();
   const [query, setQuery] = useState("");
 
-  const plates = useAppStore((s) => s.plates);
-  const loadPlates = useAppStore((s) => s.loadPlates);
+  const { loadPlates, plates, selectedParking } = useAppStore();
 
   useEffect(() => {
     loadPlates();
@@ -33,91 +34,125 @@ export default function ParkingScreen() {
   const unknown = filtered.filter((p: Plate) => p.isAuthorized !== true);
 
   return (
-    <ScrollView
-      style={{ padding: Spacing.three }}
-      contentContainerStyle={{ gap: Spacing.two, paddingBottom: Spacing.four }}
-      keyboardShouldPersistTaps="handled"
-    >
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingVertical: Spacing.two,
-        }}
-      >
-        <ThemedText type="subtitle">Plaques</ThemedText>
-        <ThemedText type="small" themeColor="textSecondary">
-          {filtered.length} plaque{filtered.length !== 1 ? "s" : ""}
-        </ThemedText>
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          gap: Spacing.two,
-          backgroundColor: theme.backgroundElement,
-          borderRadius: Spacing.two,
-          paddingHorizontal: Spacing.three,
-          paddingVertical: Spacing.two,
-        }}
-      >
-        <Search size={16} color={theme.textSecondary} />
-        <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder="Plaque ou nom..."
-          placeholderTextColor={theme.textSecondary}
-          style={{ flex: 1, color: theme.text, fontSize: 15 }}
-          autoCapitalize="characters"
-          clearButtonMode="while-editing"
-        />
-      </View>
-
-      <Spacer size={Spacing.two} />
-
-      {authorized.length > 0 && (
-        <View style={{ gap: Spacing.two }}>
-          <ThemedText
-            type="small"
-            themeColor="textSecondary"
-            style={{ textTransform: "uppercase", letterSpacing: 1 }}
-          >
-            Autorisés · {authorized.length}
-          </ThemedText>
-          {authorized.map((plate: Plate) => (
-            <ParkingCard key={plate.id} {...plate} />
-          ))}
-        </View>
-      )}
-
-      {unknown.length > 0 && (
-        <View style={{ gap: Spacing.two }}>
-          <ThemedText
-            type="small"
-            themeColor="textSecondary"
-            style={{ textTransform: "uppercase", letterSpacing: 1 }}
-          >
-            Inconnus · {unknown.length}
-          </ThemedText>
-          {unknown.map((plate: Plate) => (
-            <ParkingCard key={plate.id} {...plate} />
-          ))}
-        </View>
-      )}
-
-      {filtered.length === 0 && (
-        <ThemedText
-          type="small"
-          themeColor="textSecondary"
-          style={{ textAlign: "center", paddingTop: Spacing.four }}
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Pressable
+          onPress={() => router.push("/(option)/parkingsList")}
+          style={styles.parkingSelector}
         >
-          {query.trim()
-            ? `Aucun résultat pour « ${query} »`
-            : "Aucune plaque enregistrée"}
-        </ThemedText>
-      )}
-    </ScrollView>
+          <View>
+            <ThemedText type="subtitle">{selectedParking?.name ?? "Parking"}</ThemedText>
+            <ThemedText type="small" themeColor="textSecondary">
+              {plates.length} véhicule{plates.length !== 1 ? "s" : ""}
+            </ThemedText>
+          </View>
+          <ChevronDown size={16} color={theme.textSecondary} />
+        </Pressable>
+        <Pressable
+          hitSlop={8}
+          onPress={() =>
+            router.push({
+              pathname: "/(option)/upsertParking",
+              params: { id: selectedParking?.id },
+            })
+          }
+        >
+          <Settings2 size={20} color={theme.textSecondary} />
+        </Pressable>
+      </View>
+
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{ gap: Spacing.two, paddingBottom: Spacing.four }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={[styles.searchBar, { backgroundColor: theme.backgroundElement }]}>
+          <Search size={16} color={theme.textSecondary} />
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder="Plaque ou nom..."
+            placeholderTextColor={theme.textSecondary}
+            style={{ flex: 1, color: theme.text, fontSize: 15 }}
+            autoCapitalize="characters"
+            clearButtonMode="while-editing"
+          />
+        </View>
+
+        <Spacer size={Spacing.two} />
+
+        {authorized.length > 0 && (
+          <View style={{ gap: Spacing.two }}>
+            <ThemedText
+              type="small"
+              themeColor="textSecondary"
+              style={{ textTransform: "uppercase", letterSpacing: 1 }}
+            >
+              Autorisés · {authorized.length}
+            </ThemedText>
+            {authorized.map((plate: Plate) => (
+              <ParkingCard key={plate.id} {...plate} />
+            ))}
+          </View>
+        )}
+
+        {unknown.length > 0 && (
+          <View style={{ gap: Spacing.two }}>
+            <ThemedText
+              type="small"
+              themeColor="textSecondary"
+              style={{ textTransform: "uppercase", letterSpacing: 1 }}
+            >
+              Inconnus · {unknown.length}
+            </ThemedText>
+            {unknown.map((plate: Plate) => (
+              <ParkingCard key={plate.id} {...plate} />
+            ))}
+          </View>
+        )}
+
+        {filtered.length === 0 && (
+          <ThemedText
+            type="small"
+            themeColor="textSecondary"
+            style={{ textAlign: "center", paddingTop: Spacing.four }}
+          >
+            {query.trim()
+              ? `Aucun résultat pour « ${query} »`
+              : "Aucune plaque enregistrée"}
+          </ThemedText>
+        )}
+      </ScrollView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+  },
+  parkingSelector: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.one,
+  },
+  scroll: {
+    flex: 1,
+    paddingHorizontal: Spacing.three,
+  },
+  searchBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.two,
+    borderRadius: Spacing.two,
+    paddingHorizontal: Spacing.three,
+    paddingVertical: Spacing.two,
+  },
+});
