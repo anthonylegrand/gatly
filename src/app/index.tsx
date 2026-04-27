@@ -1,3 +1,4 @@
+import { AnimatedIcon } from "@/components/features/setup/AnimatedIcon";
 import { ThemedText } from "@/components/ui";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native";
@@ -9,6 +10,8 @@ export default function Index() {
   return (
     <SafeAreaView>
       <ThemedText>Edit src/app/index.tsx to edit this screen.</ThemedText>
+
+      <AnimatedIcon />
 
       <TouchableOpacity onPress={() => router.dismissTo("/(tabs)/parking")}>
         <ThemedText>Press me</ThemedText>
