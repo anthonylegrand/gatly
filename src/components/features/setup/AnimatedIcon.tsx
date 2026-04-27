@@ -1,4 +1,4 @@
-import { Colors } from "@/constants";
+import { Colors, Spacing } from "@/constants";
 import { Image } from "expo-image";
 import { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: 76,
     height: 71,
+    borderRadius: Spacing.two,
   },
   background: {
     borderRadius: 40,
