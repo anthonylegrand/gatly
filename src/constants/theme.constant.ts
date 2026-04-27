@@ -8,8 +8,8 @@ import "@/global.css";
 import { Platform } from "react-native";
 
 export const Colors = {
-  primary: "#6C63FF",
-  primaryLight: "#9B95FF",
+  primary: "#1E88E5",
+  primaryLight: "#64B5F6",
   secondary: "#FF6584",
   danger: "#EF4444",
 
