@@ -1,8 +1,10 @@
 import { NewParking, Parking } from "@/../db/schema";
-import { parkingRepository } from "../repositorys/parking.repository";
+import { parkingRepository, ParkingWithCount } from "../repositorys/parking.repository";
+
+export type { ParkingWithCount };
 
 export const parkingService = {
-  getAll: (): Promise<Parking[]> => parkingRepository.findAll(),
+  getAll: (): Promise<ParkingWithCount[]> => parkingRepository.findAll(),
 
   getById: (id: string): Promise<Parking[]> => parkingRepository.findById(id),
 

@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -6,10 +7,19 @@ import { AnimatedIcon } from "@/components/features/setup/AnimatedIcon";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useAppStore } from "@/utils/store";
 
 export default function Index() {
   const router = useRouter();
   const theme = useTheme();
+
+  const { loadParkings, parkings } = useAppStore();
+
+  useEffect(() => {
+    loadParkings();
+  }, []);
+
+  const isFirstStart = parkings.length === 0;
 
   return (
     <SafeAreaView
@@ -33,8 +43,12 @@ export default function Index() {
       </View>
 
       <ThemedButton
-        subtitle="Introduction"
-        onPress={() => router.push("/(intro)/introScreen1")}
+        subtitle={isFirstStart ? "Introduction" : "Parkings list"}
+        onPress={() => {
+          isFirstStart
+            ? router.push("/(intro)/introScreen1")
+            : router.push("/(option)/parkingsList");
+        }}
       >
         Commencer
       </ThemedButton>

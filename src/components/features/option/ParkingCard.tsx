@@ -1,16 +1,15 @@
 import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 
-import type { Parking } from "@/../db/schema";
 import { ThemedIcon } from "@/components/common/ThemedIcon";
 import { ThemedText } from "@/components/ui";
 import { ThemedCard } from "@/components/ui/ThemedCard";
 import { Colors, Spacing } from "@/constants";
 import { PLATE_COUNTRIES } from "@/constants/plate.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
-import { useAppStore } from "@/utils/store";
+import type { ParkingWithCount } from "@/utils/services/parking.service";
 
 type Props = {
-  parking: Parking;
+  parking: ParkingWithCount;
   isSelected: boolean;
   onSelect: () => void;
   onEdit: () => void;
@@ -20,9 +19,7 @@ const MAX_COUNTRIES = 10;
 
 export function ParkingCard({ parking, isSelected, onSelect, onEdit }: Props) {
   const theme = useTheme();
-  const { plates } = useAppStore();
-
-  const plateCount = plates.filter((p) => p.parkingId === parking.id).length;
+  const { plateCount } = parking;
 
   const selectedCountrys = parking.countrys ?? [];
   const inactive = PLATE_COUNTRIES.filter((c) => !selectedCountrys.includes(c));

@@ -2,12 +2,12 @@ import { create } from "zustand";
 
 import { NewParking, NewPlate, Parking, Plate } from "@/../db/schema";
 import { PlateDetectionResult } from "@/libs/plate-reader.lib";
-import { parkingService } from "@/utils/services/parking.service";
+import { parkingService, ParkingWithCount } from "@/utils/services/parking.service";
 import { plateService } from "@/utils/services/plate.service";
 
 type AppState = {
-  parkings: Parking[];
-  loadParkings: () => Promise<Parking[]>;
+  parkings: ParkingWithCount[];
+  loadParkings: () => Promise<ParkingWithCount[]>;
   getParking: (id: string) => Promise<Parking | null>;
   createParking: (data: Omit<NewParking, "id">) => Promise<Parking>;
   updateParking: (id: string, data: Partial<NewParking>) => Promise<Parking>;

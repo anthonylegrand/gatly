@@ -4,21 +4,21 @@ import { useEffect } from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import type { Parking } from "@/../db/schema";
 import { ParkingCard } from "@/components/features/option/ParkingCard";
 import { ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
-import type { Parking } from "@/../db/schema";
 
 export default function ParkingsListScreen() {
   const router = useRouter();
   const theme = useTheme();
-  const { parkings, loadParkings, selectedParking, setSelectedParking, loadPlates } = useAppStore();
+  const { parkings, loadParkings, selectedParking, setSelectedParking } =
+    useAppStore();
 
   useEffect(() => {
-    loadParkings();
-    loadPlates();
+    if (!parkings) loadParkings();
   }, []);
 
   function selectParking(parking: Parking) {
@@ -27,11 +27,17 @@ export default function ParkingsListScreen() {
   }
 
   function openUpsert(id?: string) {
-    router.push(id ? { pathname: "/(option)/upsertParking", params: { id } } : "/(option)/upsertParking");
+    router.push(
+      id
+        ? { pathname: "/(option)/upsertParking", params: { id } }
+        : "/(option)/upsertParking",
+    );
   }
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: theme.background }]}
+    >
       <View style={styles.header}>
         <ThemedText type="subtitle">Mes parkings</ThemedText>
         <Pressable
@@ -49,7 +55,10 @@ export default function ParkingsListScreen() {
         contentContainerStyle={styles.list}
         ListEmptyComponent={
           <View style={styles.empty}>
-            <ThemedText themeColor="textSecondary" style={{ textAlign: "center" }}>
+            <ThemedText
+              themeColor="textSecondary"
+              style={{ textAlign: "center" }}
+            >
               Aucun parking. Créez-en un pour commencer.
             </ThemedText>
           </View>

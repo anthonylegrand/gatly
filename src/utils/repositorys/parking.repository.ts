@@ -1,10 +1,17 @@
-import { eq } from "drizzle-orm";
+import { count, eq, getTableColumns } from "drizzle-orm";
 
 import { db } from "@/../db/client";
-import { NewParking, parkings } from "@/../db/schema";
+import { NewParking, Parking, parkings, plates } from "@/../db/schema";
+
+export type ParkingWithCount = Parking & { plateCount: number };
 
 export const parkingRepository = {
-  findAll: () => db.select().from(parkings),
+  findAll: () =>
+    db
+      .select({ ...getTableColumns(parkings), plateCount: count(plates.id) })
+      .from(parkings)
+      .leftJoin(plates, eq(plates.parkingId, parkings.id))
+      .groupBy(parkings.id) as Promise<ParkingWithCount[]>,
 
   findById: (id: string) =>
     db.select().from(parkings).where(eq(parkings.id, id)),
