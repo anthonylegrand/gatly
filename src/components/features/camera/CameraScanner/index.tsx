@@ -15,6 +15,7 @@ import type { Text } from "react-native-vision-camera-ocr-plus";
 
 import { ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
+import { AdBanner } from "@/libs/admob.lib";
 import { detectPlate } from "@/libs/plate-reader.lib";
 import { useAppStore } from "@/utils/store";
 import usePersistantStore from "@/utils/store/usePersistantStore";
@@ -100,6 +101,8 @@ export function CameraScanner() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <AdBanner />
+
       <View style={styles.content}>
         <PlateIcon />
 
