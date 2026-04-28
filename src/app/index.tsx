@@ -15,11 +15,17 @@ export default function Index() {
 
   const { loadParkings, parkings } = useAppStore();
 
+  const isFirstStart = parkings.length === 0;
+
   useEffect(() => {
     loadParkings();
   }, []);
 
-  const isFirstStart = parkings.length === 0;
+  useEffect(() => {
+    if (!isFirstStart) router.dismissTo("/(option)/parkingsList");
+  }, [parkings.length]);
+
+  if (!isFirstStart) return null;
 
   return (
     <SafeAreaView
@@ -43,12 +49,8 @@ export default function Index() {
       </View>
 
       <ThemedButton
-        subtitle={isFirstStart ? "Introduction" : "Parkings list"}
-        onPress={() => {
-          isFirstStart
-            ? router.push("/(intro)/introScreen1")
-            : router.push("/(option)/parkingsList");
-        }}
+        subtitle={"Introduction"}
+        onPress={() => router.push("/(intro)/introScreen1")}
       >
         Commencer
       </ThemedButton>

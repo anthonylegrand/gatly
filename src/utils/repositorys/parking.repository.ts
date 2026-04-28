@@ -1,4 +1,4 @@
-import { count, eq, getTableColumns } from "drizzle-orm";
+import { count, desc, eq, getTableColumns } from "drizzle-orm";
 
 import { db } from "@/../db/client";
 import { NewParking, Parking, parkings, plates } from "@/../db/schema";
@@ -10,6 +10,7 @@ export const parkingRepository = {
     db
       .select({ ...getTableColumns(parkings), plateCount: count(plates.id) })
       .from(parkings)
+      .orderBy(desc(parkings.lastUsed))
       .leftJoin(plates, eq(plates.parkingId, parkings.id))
       .groupBy(parkings.id) as Promise<ParkingWithCount[]>,
 

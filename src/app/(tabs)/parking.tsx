@@ -1,7 +1,13 @@
 import { useRouter } from "expo-router";
 import { ChevronDown, Search, Settings2 } from "lucide-react-native";
-import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 import { Plate } from "@/../db/schema";
 import { Spacer } from "@/components/common/Spacer";
@@ -16,11 +22,22 @@ export default function ParkingScreen() {
   const theme = useTheme();
   const [query, setQuery] = useState("");
 
-  const { loadPlates, plates, selectedParking } = useAppStore();
+  const { loadPlates, plates, selectedParking, updateParking } = useAppStore();
 
   useEffect(() => {
     loadPlates();
   }, []);
+
+  useEffect(
+    useCallback(() => {
+      if (!selectedParking) return;
+      const today = new Date().setHours(0, 0, 0, 0);
+      const lastDay = new Date(selectedParking.lastUsed).setHours(0, 0, 0, 0);
+      if (lastDay < today) {
+        updateParking(selectedParking.id, { lastUsed: Date.now() });
+      }
+    }, [selectedParking?.id, selectedParking?.lastUsed]),
+  );
 
   const filtered = query.trim()
     ? plates.filter(
@@ -41,7 +58,9 @@ export default function ParkingScreen() {
           style={styles.parkingSelector}
         >
           <View>
-            <ThemedText type="subtitle">{selectedParking?.name ?? "Parking"}</ThemedText>
+            <ThemedText type="subtitle">
+              {selectedParking?.name ?? "Parking"}
+            </ThemedText>
             <ThemedText type="small" themeColor="textSecondary">
               {plates.length} véhicule{plates.length !== 1 ? "s" : ""}
             </ThemedText>
@@ -63,10 +82,18 @@ export default function ParkingScreen() {
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={{ gap: Spacing.two, paddingBottom: Spacing.four }}
+        contentContainerStyle={{
+          gap: Spacing.two,
+          paddingBottom: Spacing.four,
+        }}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={[styles.searchBar, { backgroundColor: theme.backgroundElement }]}>
+        <View
+          style={[
+            styles.searchBar,
+            { backgroundColor: theme.backgroundElement },
+          ]}
+        >
           <Search size={16} color={theme.textSecondary} />
           <TextInput
             value={query}
@@ -95,6 +122,8 @@ export default function ParkingScreen() {
             ))}
           </View>
         )}
+
+        <Spacer size="two" />
 
         {unknown.length > 0 && (
           <View style={{ gap: Spacing.two }}>

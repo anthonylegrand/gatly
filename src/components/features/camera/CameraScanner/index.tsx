@@ -34,8 +34,14 @@ const CAMERA_HEIGHT = CAMERA_WIDTH / 2.5;
 export function CameraScanner() {
   const device = useCameraDevice("back");
   const isFocused = useIsFocused();
-  const { selectedPlate, setSelectedPlate } = useAppStore();
+  const { selectedPlate, setSelectedPlate, plates, updatePlate } =
+    useAppStore();
   const hasPlate = useRef(Worklets.createSharedValue(false));
+  const platesRef = useRef(plates);
+
+  useEffect(() => {
+    platesRef.current = plates;
+  }, [plates]);
 
   const { scanText } = useTextRecognition({
     language: "latin",
@@ -44,16 +50,29 @@ export function CameraScanner() {
     useLightweightMode: true,
   });
 
-  const handleResult = useCallback((result: Text) => {
-    for (const block of result.blocks) {
-      const solutions = detectPlate(block.blockText, PLATE_COUNTRIES);
-      if (solutions.length > 0) {
-        hasPlate.current.value = true;
-        setSelectedPlate(solutions[0]);
-        return;
+  const handleResult = useCallback(
+    (result: Text) => {
+      for (const block of result.blocks) {
+        const solutions = detectPlate(block.blockText, PLATE_COUNTRIES);
+        if (solutions.length > 0) {
+          hasPlate.current.value = true;
+          setSelectedPlate(solutions[0]);
+
+          const found = platesRef.current.find(
+            (p) => p.plate === solutions[0].plate,
+          );
+          if (found) {
+            const today = new Date().setHours(0, 0, 0, 0);
+            const lastDay = new Date(found.lastSeen).setHours(0, 0, 0, 0);
+            if (lastDay < today)
+              updatePlate(found.id, { lastSeen: Date.now() });
+          }
+          return;
+        }
       }
-    }
-  }, []);
+    },
+    [updatePlate],
+  );
 
   const handleResultOnJS = useMemo(
     () => Worklets.createRunOnJS(handleResult),

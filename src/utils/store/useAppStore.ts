@@ -2,7 +2,10 @@ import { create } from "zustand";
 
 import { NewParking, NewPlate, Parking, Plate } from "@/../db/schema";
 import { PlateDetectionResult } from "@/libs/plate-reader.lib";
-import { parkingService, ParkingWithCount } from "@/utils/services/parking.service";
+import {
+  parkingService,
+  ParkingWithCount,
+} from "@/utils/services/parking.service";
 import { plateService } from "@/utils/services/plate.service";
 
 type AppState = {
@@ -50,8 +53,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   updateParking: async (id, data) => {
     const parking = await parkingService.update(id, data);
     const parkings = await parkingService.getAll();
-    const wasSelected = get().selectedParking?.id === id;
-    set({ parkings, ...(wasSelected && { selectedParking: parking }) });
+    set({ parkings });
     return parking;
   },
   removeParking: async (id) => {
@@ -88,17 +90,13 @@ export const useAppStore = create<AppState>()((set, get) => ({
       parkingId: selectedParking.id,
     });
     const plates = await plateService.getAll();
-    set({ plates, selectedPlate: plate });
+    set({ plates });
     return plate;
   },
   updatePlate: async (id, data) => {
     const plate = await plateService.update(id, data);
     const plates = await plateService.getAll();
-
-    const selectedPlater = get().selectedPlate;
-    const wasSelected =
-      selectedPlater && "id" in selectedPlater && selectedPlater?.id === id;
-    set({ plates, ...(wasSelected && { selectedPlate: plate }) });
+    set({ plates });
 
     return plate;
   },

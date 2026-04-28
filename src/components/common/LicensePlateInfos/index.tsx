@@ -31,7 +31,7 @@ export default function LicensePlateInfos() {
         style={{ padding: Spacing.three }}
         contentContainerStyle={{ gap: Spacing.three }}
       >
-        {selectedPlate && <ContentBottomSheet plateData={selectedPlate} />}
+        {selectedPlate && <ContentBottomSheet />}
       </BottomSheetScrollView>
     </BottomSheetModal>
   );
