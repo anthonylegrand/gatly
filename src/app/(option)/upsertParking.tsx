@@ -1,14 +1,12 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ArrowLeft, Check, Trash2 } from "lucide-react-native";
+import { ArrowLeft, Trash2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ThemedInput } from "@/components/common/ThemedInput";
 import { ThemedButton, ThemedText } from "@/components/ui";
-import { ThemedCard } from "@/components/ui/ThemedCard";
 import { Colors, Spacing } from "@/constants";
-import { PLATE_COUNTRIES, type PlateCountry } from "@/constants/plate.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
 
@@ -22,7 +20,6 @@ export default function UpsertParkingScreen() {
   const isEditing = !!id;
 
   const [name, setName] = useState("");
-  const [selectedCountrys, setSelectedCountrys] = useState<PlateCountry[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -30,17 +27,8 @@ export default function UpsertParkingScreen() {
     getParking(id).then((parking) => {
       if (!parking) return;
       setName(parking.name);
-      setSelectedCountrys(parking.countrys ?? []);
     });
   }, [id]);
-
-  function toggleCountry(country: PlateCountry) {
-    setSelectedCountrys((prev) =>
-      prev.includes(country)
-        ? prev.filter((c) => c !== country)
-        : [...prev, country],
-    );
-  }
 
   async function handleSave() {
     if (!name.trim()) return;
@@ -49,10 +37,9 @@ export default function UpsertParkingScreen() {
       if (isEditing && id) {
         await updateParking(id, {
           name: name.trim(),
-          countrys: selectedCountrys,
         });
       } else {
-        await createParking({ name: name.trim(), countrys: selectedCountrys });
+        await createParking({ name: name.trim() });
       }
       router.back();
     } finally {
@@ -106,62 +93,6 @@ export default function UpsertParkingScreen() {
             onChangeText={setName}
           />
         </View>
-
-        <View style={styles.section}>
-          <View style={styles.sectionLabelRow}>
-            <ThemedText type="small" themeColor="textSecondary">
-              Formats de plaques détectés
-            </ThemedText>
-          </View>
-          <ThemedText type="small" style={[styles.infoText, { color: theme.textSecondary, opacity: 0.7 }]}>
-            Seuls les véhicules dont la plaque correspond à un format sélectionné seront reconnus lors du scan.
-          </ThemedText>
-          <ThemedCard style={styles.countryList}>
-            {PLATE_COUNTRIES.map((country, index) => {
-              const isSelected = selectedCountrys.includes(
-                country as PlateCountry,
-              );
-              const isLast = index === PLATE_COUNTRIES.length - 1;
-              return (
-                <View key={country}>
-                  <Pressable
-                    style={styles.countryRow}
-                    onPress={() => toggleCountry(country as PlateCountry)}
-                  >
-                    <ThemedText type="default">
-                      {COUNTRY_LABELS[country] ?? country}
-                    </ThemedText>
-                    <View
-                      style={[
-                        styles.checkbox,
-                        {
-                          backgroundColor: isSelected
-                            ? Colors.primary
-                            : "transparent",
-                          borderColor: isSelected
-                            ? Colors.primary
-                            : theme.textSecondary,
-                        },
-                      ]}
-                    >
-                      {isSelected && (
-                        <Check size={14} color="#FFFFFF" strokeWidth={3} />
-                      )}
-                    </View>
-                  </Pressable>
-                  {!isLast && (
-                    <View
-                      style={[
-                        styles.divider,
-                        { backgroundColor: theme.background },
-                      ]}
-                    />
-                  )}
-                </View>
-              );
-            })}
-          </ThemedCard>
-        </View>
       </ScrollView>
 
       <View style={styles.footer}>
@@ -181,13 +112,6 @@ export default function UpsertParkingScreen() {
   );
 }
 
-const COUNTRY_LABELS: Record<string, string> = {
-  FR: "France",
-  BE: "Belgique",
-  CH: "Suisse",
-  LU: "Luxembourg",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -203,38 +127,6 @@ const styles = StyleSheet.create({
   },
   section: {
     gap: Spacing.two,
-  },
-  sectionLabelRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: Spacing.one,
-    paddingHorizontal: Spacing.one,
-  },
-  infoText: {
-    paddingHorizontal: Spacing.one,
-  },
-  countryList: {
-    padding: 0,
-    overflow: "hidden",
-  },
-  countryRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.three,
-  },
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    borderWidth: 1.5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  divider: {
-    height: 1,
-    marginHorizontal: Spacing.three,
   },
   footer: {
     padding: Spacing.three,
