@@ -11,7 +11,7 @@ import {
 
 import { Plate } from "@/../db/schema";
 import { Spacer } from "@/components/common/Spacer";
-import { ParkingCard } from "@/components/features/parking/ParkingCard";
+import { PlateCard } from "@/components/features/parking/PlateCard";
 import { ThemedText } from "@/components/ui";
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
@@ -118,7 +118,7 @@ export default function ParkingScreen() {
               Autorisés · {authorized.length}
             </ThemedText>
             {authorized.map((plate: Plate) => (
-              <ParkingCard key={plate.id} {...plate} />
+              <PlateCard key={plate.id} {...plate} />
             ))}
           </View>
         )}
@@ -135,7 +135,7 @@ export default function ParkingScreen() {
               Inconnus · {unknown.length}
             </ThemedText>
             {unknown.map((plate: Plate) => (
-              <ParkingCard key={plate.id} {...plate} />
+              <PlateCard key={plate.id} {...plate} />
             ))}
           </View>
         )}

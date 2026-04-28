@@ -21,6 +21,10 @@ export default function ParkingsListScreen() {
     if (!parkings) loadParkings();
   }, []);
 
+  useEffect(() => {
+    if (parkings && !selectedParking) setSelectedParking(parkings[0]);
+  }, [parkings, selectedParking]);
+
   function selectParking(parking: Parking) {
     setSelectedParking(parking);
     router.dismissTo("/(tabs)/parking");

@@ -46,6 +46,9 @@ export default function ContentBottomSheet() {
   const [customName, setCustomName] = useState(
     registeredPlate?.customName ?? "",
   );
+  const [customInfos, setCustomInfos] = useState(
+    registeredPlate?.customInfos ?? "",
+  );
   const [isAuthorized, setIsAuthorized] = useState(
     registeredPlate?.isAuthorized ?? false,
   );
@@ -65,6 +68,7 @@ export default function ContentBottomSheet() {
 
   useEffect(() => {
     setCustomName(registeredPlate?.customName ?? "");
+    setCustomInfos(registeredPlate?.customInfos ?? "");
     setIsAuthorized(registeredPlate?.isAuthorized ?? false);
     const until = registeredPlate?.authorizedUntil
       ? new Date(registeredPlate.authorizedUntil)
@@ -79,6 +83,7 @@ export default function ContentBottomSheet() {
   const handleSave = async () => {
     const payload = {
       customName: customName.trim() || null,
+      customInfos: customInfos.trim() || null,
       isAuthorized,
       authorizedUntil:
         isAuthorized && authorizedUntil ? authorizedUntil.getTime() : null,
@@ -171,6 +176,8 @@ export default function ContentBottomSheet() {
         }}
         customName={customName}
         onChangeCustomName={setCustomName}
+        customInfos={customInfos}
+        onChangeCustomInfos={setCustomInfos}
         lastSeen={registeredPlate?.lastSeen}
       />
 

@@ -19,7 +19,7 @@ import { Plate } from "../../../../db/schema";
 dayjs.extend(relativeTime);
 dayjs.locale("fr");
 
-export function ParkingCard(plate: Plate) {
+export function PlateCard(plate: Plate) {
   const theme = useTheme();
   const { setSelectedPlate } = useAppStore();
 
@@ -51,7 +51,12 @@ export function ParkingCard(plate: Plate) {
             <ThemedText type="default" style={styles.customName}>
               {plate.customName || "-"}
             </ThemedText>
-            <View style={[styles.plateBadge, { backgroundColor: theme.backgroundSheet }]}>
+            <View
+              style={[
+                styles.plateBadge,
+                { backgroundColor: theme.backgroundSheet },
+              ]}
+            >
               <ThemedText style={[styles.plateText, { color: theme.text }]}>
                 {plate.plate}
               </ThemedText>
@@ -68,12 +73,18 @@ export function ParkingCard(plate: Plate) {
           <View style={styles.right}>
             <View style={styles.statusGroup}>
               <StatusIcon size={13} color={statusColor} />
-              <ThemedText type="small" style={[styles.statusLabel, { color: statusColor }]}>
+              <ThemedText
+                type="small"
+                style={[styles.statusLabel, { color: statusColor }]}
+              >
                 {statusLabel}
               </ThemedText>
             </View>
             {plate.isAuthorized && plate.authorizedUntil && (
-              <ThemedText type="small" style={{ color: statusColor, opacity: 0.7 }}>
+              <ThemedText
+                type="small"
+                style={{ color: statusColor, opacity: 0.7 }}
+              >
                 expire {dayjs(plate.authorizedUntil).fromNow()}
               </ThemedText>
             )}

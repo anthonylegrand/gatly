@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { runMigrations } from "@/../db/migrations";
-import { AnimatedSplashOverlay } from "@/components/features/setup/AnimatedIcon";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
@@ -20,7 +19,6 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
-        <AnimatedSplashOverlay />
         <Stack
           screenOptions={{
             headerShown: false,

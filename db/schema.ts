@@ -24,6 +24,7 @@ export const plates = sqliteTable("plates", {
     .$defaultFn(() => nanoid()),
   plate: text("plate").notNull(),
   customName: text("custom_name"),
+  customInfos: text("custom_infos"),
   country: text("country", {
     enum: PLATE_COUNTRIES as [string, ...string[]],
   }).notNull(),
@@ -38,7 +39,10 @@ export const plates = sqliteTable("plates", {
 
   parkingId: text("parking_id")
     .notNull()
-    .references(() => parkings.id, { onDelete: "cascade", onUpdate: "cascade" }),
+    .references(() => parkings.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
 });
 export type Plate = typeof plates.$inferSelect;
 export type NewPlate = typeof plates.$inferInsert;

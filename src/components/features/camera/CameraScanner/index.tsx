@@ -14,9 +14,10 @@ import { Worklets } from "react-native-worklets-core";
 import type { Text } from "react-native-vision-camera-ocr-plus";
 
 import { ThemedText } from "@/components/ui";
-import { Colors, PLATE_COUNTRIES, Spacing } from "@/constants";
+import { Colors, Spacing } from "@/constants";
 import { detectPlate } from "@/libs/plate-reader.lib";
 import { useAppStore } from "@/utils/store";
+import usePersistantStore from "@/utils/store/usePersistantStore";
 import BlinkedEye from "./BlinkedEye";
 import PlateIcon from "./PlateIcon";
 
@@ -36,6 +37,8 @@ export function CameraScanner() {
   const isFocused = useIsFocused();
   const { selectedPlate, setSelectedPlate, plates, updatePlate } =
     useAppStore();
+  const { scannablePlateCountry, setScannablePlateCountry } =
+    usePersistantStore();
   const hasPlate = useRef(Worklets.createSharedValue(false));
   const platesRef = useRef(plates);
 
@@ -53,7 +56,7 @@ export function CameraScanner() {
   const handleResult = useCallback(
     (result: Text) => {
       for (const block of result.blocks) {
-        const solutions = detectPlate(block.blockText, PLATE_COUNTRIES);
+        const solutions = detectPlate(block.blockText, scannablePlateCountry);
         if (solutions.length > 0) {
           hasPlate.current.value = true;
           setSelectedPlate(solutions[0]);
@@ -71,7 +74,7 @@ export function CameraScanner() {
         }
       }
     },
-    [updatePlate],
+    [updatePlate, scannablePlateCountry],
   );
 
   const handleResultOnJS = useMemo(

@@ -30,6 +30,8 @@ type Props = {
   onEditDate: () => void;
   customName: string;
   onChangeCustomName: (text: string) => void;
+  customInfos: string;
+  onChangeCustomInfos: (text: string) => void;
   lastSeen?: number | null;
 };
 
@@ -43,6 +45,8 @@ export function AuthorizationForm({
   onEditDate,
   customName,
   onChangeCustomName,
+  customInfos,
+  onChangeCustomInfos,
   lastSeen,
 }: Props) {
   const theme = useTheme();
@@ -141,6 +145,15 @@ export function AuthorizationForm({
         placeholder="ex: Famille Martin"
         value={customName}
         onChangeText={onChangeCustomName}
+      />
+
+      <ThemedInput
+        label="Informations complémentaires"
+        placeholder="ex: Locataire appt. 3B"
+        value={customInfos}
+        onChangeText={onChangeCustomInfos}
+        multiline
+        numberOfLines={3}
       />
 
       {/* Last seen */}

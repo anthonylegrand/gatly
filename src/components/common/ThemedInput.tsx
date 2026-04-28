@@ -16,6 +16,7 @@ export function ThemedInput({
   icon: Icon,
   style,
   inputComponent: Input = TextInput,
+  multiline,
   ...rest
 }: Props) {
   const theme = useTheme();
@@ -30,15 +31,16 @@ export function ThemedInput({
       <View
         style={{
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: multiline ? "flex-start" : "center",
           backgroundColor: theme.backgroundElement,
           borderRadius: Spacing.two,
           paddingHorizontal: Spacing.two,
-          height: 44,
+          ...(multiline ? { paddingVertical: Spacing.two, minHeight: 44 } : { height: 44 }),
         }}
       >
         {Icon && <Icon size={18} color={theme.textSecondary} />}
         <Input
+          multiline={multiline}
           placeholderTextColor={theme.textSecondary}
           style={[
             {
@@ -46,6 +48,7 @@ export function ThemedInput({
               color: theme.text,
               fontSize: 14,
               paddingHorizontal: Icon ? Spacing.two : Spacing.one,
+              ...(multiline && { textAlignVertical: "top" }),
             },
             style,
           ]}
