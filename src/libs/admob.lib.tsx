@@ -1,9 +1,4 @@
-import {
-  getTrackingPermissionsAsync,
-  requestTrackingPermissionsAsync,
-} from "expo-tracking-transparency";
 import { useEffect, useRef, useState } from "react";
-import { Platform } from "react-native";
 import mobileAds, {
   AdEventType,
   BannerAd,
@@ -30,13 +25,6 @@ export const AD_UNITS = {
 // ─── Initialization ──────────────────────────────────────────────────────────
 
 export async function initAdmob(): Promise<void> {
-  if (Platform.OS === "ios") {
-    const { status } = await getTrackingPermissionsAsync();
-    if (status === "undetermined") {
-      await requestTrackingPermissionsAsync();
-    }
-  }
-
   await mobileAds().setRequestConfiguration({
     maxAdContentRating: MaxAdContentRating.PG,
     tagForChildDirectedTreatment: false,
