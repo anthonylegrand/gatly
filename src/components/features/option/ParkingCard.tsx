@@ -1,17 +1,13 @@
-import dayjs from "dayjs";
-import "dayjs/locale/fr";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { Car, Check, Clock, Pencil } from "lucide-react-native";
 import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
-
-dayjs.extend(relativeTime);
-dayjs.locale("fr");
 
 import { ThemedText } from "@/components/ui";
 import { ThemedCard } from "@/components/ui/ThemedCard";
 import { Colors, Spacing } from "@/constants";
+import { useDayjs } from "@/hooks/useDayjs";
 import { useTheme } from "@/hooks/theme/useTheme";
 import type { ParkingWithCount } from "@/utils/services/parking.service";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   parking: ParkingWithCount;
@@ -22,7 +18,9 @@ type Props = {
 
 export function ParkingCard({ parking, isSelected, onSelect, onEdit }: Props) {
   const theme = useTheme();
+  const day = useDayjs();
   const { plateCount } = parking;
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity onPress={onSelect} activeOpacity={0.7}>
@@ -38,7 +36,9 @@ export function ParkingCard({ parking, isSelected, onSelect, onEdit }: Props) {
               {isSelected && (
                 <Check size={14} color={Colors.primary} strokeWidth={2.5} />
               )}
-              <ThemedText style={[styles.name, isSelected && { color: Colors.primary }]}>
+              <ThemedText
+                style={[styles.name, isSelected && { color: Colors.primary }]}
+              >
                 {parking.name}
               </ThemedText>
             </View>
@@ -46,14 +46,20 @@ export function ParkingCard({ parking, isSelected, onSelect, onEdit }: Props) {
               <View style={styles.metaItem}>
                 <Car size={11} color={theme.textSecondary} />
                 <ThemedText type="small" themeColor="textSecondary">
-                  {plateCount} véhicule{plateCount !== 1 ? "s" : ""}
+                  {t(
+                    plateCount > 1
+                      ? "GLOBAL.text.X_véhicules"
+                      : "GLOBAL.text.X_véhicule",
+                  ).replace("%%%", plateCount.toString())}
                 </ThemedText>
               </View>
-              <ThemedText type="small" themeColor="textSecondary">·</ThemedText>
+              <ThemedText type="small" themeColor="textSecondary">
+                ·
+              </ThemedText>
               <View style={styles.metaItem}>
                 <Clock size={11} color={theme.textSecondary} />
                 <ThemedText type="small" themeColor="textSecondary">
-                  {dayjs(parking.lastUsed).fromNow()}
+                  {day(parking.lastUsed).fromNow()}
                 </ThemedText>
               </View>
             </View>

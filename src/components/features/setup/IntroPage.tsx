@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   icon: LucideIcon;
@@ -24,10 +25,11 @@ export function IntroPage({
   page,
   total,
   onNext,
-  nextLabel = "Suivant",
+  nextLabel,
 }: Props) {
   const theme = useTheme();
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <SafeAreaView
@@ -68,9 +70,11 @@ export function IntroPage({
           ))}
         </View>
 
-        <ThemedButton onPress={onNext}>{nextLabel}</ThemedButton>
+        <ThemedButton onPress={onNext}>
+          {nextLabel || t("GLOBAL.button.next")}
+        </ThemedButton>
         <ThemedButton variant="ghost" onPress={() => router.back()}>
-          Retour
+          {t("GLOBAL.button.back")}
         </ThemedButton>
       </View>
     </SafeAreaView>

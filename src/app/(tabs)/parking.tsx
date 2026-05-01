@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { ChevronDown, Search, Settings2 } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Pressable,
   ScrollView,
@@ -21,6 +22,7 @@ export default function ParkingScreen() {
   const router = useRouter();
   const theme = useTheme();
   const [query, setQuery] = useState("");
+  const { t } = useTranslation();
 
   const { loadPlates, plates, selectedParking, updateParking } = useAppStore();
 
@@ -58,11 +60,13 @@ export default function ParkingScreen() {
           style={styles.parkingSelector}
         >
           <View>
-            <ThemedText type="subtitle">
-              {selectedParking?.name ?? "Parking"}
-            </ThemedText>
+            <ThemedText type="subtitle">{selectedParking?.name}</ThemedText>
             <ThemedText type="small" themeColor="textSecondary">
-              {plates.length} véhicule{plates.length !== 1 ? "s" : ""}
+              {t(
+                plates.length > 1
+                  ? "GLOBAL.text.X_véhicules"
+                  : "GLOBAL.text.X_véhicule",
+              ).replace("%%%", plates.length.toString())}
             </ThemedText>
           </View>
           <ChevronDown size={16} color={theme.textSecondary} />
@@ -98,7 +102,7 @@ export default function ParkingScreen() {
           <TextInput
             value={query}
             onChangeText={setQuery}
-            placeholder="Plaque ou nom..."
+            placeholder={t("tabs_page.parking.search_input.placeholder")}
             placeholderTextColor={theme.textSecondary}
             style={{ flex: 1, color: theme.text, fontSize: 15 }}
             autoCapitalize="characters"
@@ -115,7 +119,8 @@ export default function ParkingScreen() {
               themeColor="textSecondary"
               style={{ textTransform: "uppercase", letterSpacing: 1 }}
             >
-              Autorisés · {authorized.length}
+              {t("tabs_page.parking.list_sections.authorized")} ·{" "}
+              {authorized.length}
             </ThemedText>
             {authorized.map((plate: Plate) => (
               <PlateCard key={plate.id} {...plate} />
@@ -132,7 +137,7 @@ export default function ParkingScreen() {
               themeColor="textSecondary"
               style={{ textTransform: "uppercase", letterSpacing: 1 }}
             >
-              Inconnus · {unknown.length}
+              {t("tabs_page.parking.list_sections.unknown")} · {unknown.length}
             </ThemedText>
             {unknown.map((plate: Plate) => (
               <PlateCard key={plate.id} {...plate} />
@@ -147,8 +152,10 @@ export default function ParkingScreen() {
             style={{ textAlign: "center", paddingTop: Spacing.four }}
           >
             {query.trim()
-              ? `Aucun résultat pour « ${query} »`
-              : "Aucune plaque enregistrée"}
+              ? t(
+                  "tabs_page.parking.search_input.result_text.querry_no_result",
+                ).replace("%%%", query)
+              : t("tabs_page.parking.search_input.result_text.no_plates")}
           </ThemedText>
         )}
       </ScrollView>

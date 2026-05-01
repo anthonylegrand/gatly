@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { Plus } from "lucide-react-native";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -11,18 +12,33 @@ import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
 
+const TWO_MINUTES = 2 * 60 * 1000;
+let lastParkingsLoad = 0;
+
 export default function ParkingsListScreen() {
   const router = useRouter();
   const theme = useTheme();
-  const { parkings, loadParkings, selectedParking, setSelectedParking } =
-    useAppStore();
+  const {
+    parkings,
+    loadParkings,
+    selectedParking,
+    setSelectedParking,
+    selectedPlate,
+    setSelectedPlate,
+  } = useAppStore();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    if (!parkings) loadParkings();
+    const now = Date.now();
+    if (!parkings || now - lastParkingsLoad > TWO_MINUTES) {
+      lastParkingsLoad = now;
+      loadParkings();
+    }
   }, []);
 
   useEffect(() => {
     if (parkings && !selectedParking) setSelectedParking(parkings[0]);
+    if (selectedPlate) setSelectedPlate(null);
   }, [parkings, selectedParking]);
 
   function selectParking(parking: Parking) {
@@ -43,7 +59,9 @@ export default function ParkingsListScreen() {
       style={[styles.container, { backgroundColor: theme.background }]}
     >
       <View style={styles.header}>
-        <ThemedText type="subtitle">Mes parkings</ThemedText>
+        <ThemedText type="subtitle">
+          {t("option_page.ParkingsList.title")}
+        </ThemedText>
         <Pressable
           style={[styles.addButton, { backgroundColor: Colors.primary }]}
           onPress={() => openUpsert()}
@@ -63,7 +81,7 @@ export default function ParkingsListScreen() {
               themeColor="textSecondary"
               style={{ textAlign: "center" }}
             >
-              Aucun parking. Créez-en un pour commencer.
+              {t("option_page.ParkingsList.no_parkings_message")}
             </ThemedText>
           </View>
         }

@@ -1,6 +1,7 @@
 import { useRouter } from "expo-router";
 import { Camera } from "lucide-react-native";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useCameraPermission } from "react-native-vision-camera";
@@ -13,6 +14,7 @@ export default function CameraPermissionScreen() {
   const router = useRouter();
   const theme = useTheme();
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (hasPermission) {
@@ -34,28 +36,27 @@ export default function CameraPermissionScreen() {
 
         <View style={styles.texts}>
           <ThemedText type="subtitle" style={styles.title}>
-            Accès à la caméra
+            {t("permission_page.camera.title")}
           </ThemedText>
           <ThemedText
             type="small"
             themeColor="textSecondary"
             style={styles.text}
           >
-            Gatly utilise la caméra pour scanner les plaques d'immatriculation
-            en temps réel et les associer automatiquement à votre parking.
+            {t("permission_page.camera.description")}
           </ThemedText>
         </View>
       </View>
 
       <View style={styles.footer}>
         <ThemedButton onPress={requestPermission}>
-          Autoriser la caméra
+          {t("permission_page.camera.button.accept")}
         </ThemedButton>
         <ThemedButton
           variant="ghost"
           onPress={() => router.dismissTo("/(tabs)/parking")}
         >
-          Retour
+          {t("GLOBAL.button.back")}
         </ThemedButton>
       </View>
     </SafeAreaView>

@@ -1,8 +1,10 @@
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Spacer } from "@/components/common/Spacer";
 import { AnimatedIcon } from "@/components/features/setup/AnimatedIcon";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Spacing } from "@/constants";
@@ -12,6 +14,7 @@ import { useAppStore } from "@/utils/store";
 export default function Index() {
   const router = useRouter();
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const { loadParkings, parkings } = useAppStore();
 
@@ -38,21 +41,25 @@ export default function Index() {
           <ThemedText type="title" style={styles.appName}>
             Gatly
           </ThemedText>
+          <ThemedText type="code">{t("welcome_page.main_job")}</ThemedText>
+
+          <Spacer size={"one"} />
+
           <ThemedText
             type="small"
             themeColor="textSecondary"
             style={styles.intro}
           >
-            Gérez vos accès et vos véhicules simplement depuis votre téléphone.
+            {t("welcome_page.intro")}
           </ThemedText>
         </View>
       </View>
 
       <ThemedButton
-        subtitle={"Introduction"}
+        subtitle={t("welcome_page.button.subtitle")}
         onPress={() => router.push("/(intro)/introScreen1")}
       >
-        Commencer
+        {t("welcome_page.button.title")}
       </ThemedButton>
     </SafeAreaView>
   );

@@ -1,4 +1,136 @@
 {
-  "welcome": "Welcome to the app!",
-  "change_lang": "Change language"
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parking",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Next",
+      "back": "Back",
+      "close": "Close",
+      "save": "Save",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "delete_parking": "Delete parking",
+      "add_plate_to_parking": "Add to parking"
+    },
+    "text": {
+      "X_vehicle": "%%% vehicle",
+      "X_vehicles": "%%% vehicles"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Not registered in this parking",
+        "authorized": "Authorized vehicle",
+        "unauthorized": "Unauthorized vehicle"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Authorized",
+          "description": "Allow access to this parking?"
+        },
+        "authorizedUntil": {
+          "label": "Authorization duration",
+          "description": "Until %%%"
+        },
+        "customName": {
+          "label": "Custom name",
+          "placeholder": "e.g., Martin family"
+        },
+        "additionalData": {
+          "label": "Additional information",
+          "placeholder": "e.g., Tenant apt. 3B"
+        }
+      },
+      "lastScan": "Last detected · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Authorized",
+        "unauthorized": "Unauthorized"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Scanned %%%",
+        "willExpireIn": "Expires %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Manage your access and vehicles easily from your phone.",
+    "button": {
+      "title": "Get Started",
+      "subtitle": "Introduction"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Instant Verification",
+      "text": "Scan a license plate and immediately see if the vehicle is authorized. View all linked information in an instant."
+    },
+    "DatasPrivacy": {
+      "title": "Your Protected Data",
+      "text": "All data is governed by GDPR. For personal information, a simple email is all it takes — the person concerned receives a link and chooses what they share. They can delete their data at any time.",
+      "button": {
+        "title": "Let's go"
+      }
+    }
+  },
+  "option_page": {
+    "ParkingsList": {
+      "title": "My Parkings",
+      "no_parkings_message": "No parkings found. Create one to get started."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "New Parking",
+        "edit": "Edit Parking"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Parking Name",
+          "placeholder": "e.g., Main Parking"
+        }
+      },
+      "button": {
+        "create": "Create Parking"
+      },
+      "alert_message": "Delete '%%%'? This action cannot be undone."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Camera Access",
+      "description": "Gatly uses the camera to scan license plates in real time and automatically associate them with your parking lot.",
+      "button": {
+        "accept": "Allow Camera"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Authorized",
+        "unknown": "Unknown"
+      },
+      "search_input": {
+        "placeholder": "Plate or name...",
+        "result_text": {
+          "query_no_result": "No results for \"%%%\"",
+          "no_plates": "No plates registered"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Scan a plate",
+      "description": "Position the license plate within the frame below",
+      "footer": "More features coming soon"
+    }
+  }
 }

@@ -24,13 +24,11 @@ export default function LicensePlateInfos() {
 
     if (selectedPlate) {
       removeScanCredits(1);
-      if (isLastCredit) loadAd(); // Précharger à l'ouverture
-
       bottomSheetRef.current?.present();
+      if (isLastCredit) loadAd(); // Précharger à l'ouverture
     } else {
-      if (isLastCredit) showAd(); // Afficher à la fermeture
-
       bottomSheetRef.current?.close();
+      if (isLastCredit) showAd(); // Afficher à la fermeture
     }
   }, [selectedPlate]);
 

@@ -1,5 +1,6 @@
 import { useIsFocused } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Dimensions, StyleSheet, View } from "react-native";
 import {
   SafeAreaView,
@@ -32,7 +33,7 @@ const SCAN_REGION: ScanRegion = {
   height: "80%",
 };
 
-const FRAME_SKIP_THRESHOLD = 20;
+const FRAME_SKIP_THRESHOLD = 30;
 const CAMERA_WIDTH = Dimensions.get("window").width * 0.85;
 const CAMERA_HEIGHT = CAMERA_WIDTH / 2.5;
 
@@ -42,6 +43,7 @@ export function CameraScanner() {
   const { selectedPlate, setSelectedPlate, plates, updatePlate } =
     useAppStore();
   const { scannablePlateCountry } = usePersistantStore();
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   const hasPlate = useRef(Worklets.createSharedValue(false));
@@ -112,10 +114,10 @@ export function CameraScanner() {
 
         <View style={styles.texts}>
           <ThemedText type="subtitle" style={styles.title}>
-            Scanner une plaque
+            {t("tabs_page.camera.title")}
           </ThemedText>
           <ThemedText type="small" style={styles.description}>
-            Positionnez la plaque dans le cadre ci-dessous
+            {t("tabs_page.camera.description")}
           </ThemedText>
         </View>
 
@@ -130,7 +132,7 @@ export function CameraScanner() {
 
         <BlinkedEye />
         <ThemedText type="small" style={styles.footer}>
-          Plus de features prochainement
+          {t("tabs_page.camera.footer")}
         </ThemedText>
       </View>
     </SafeAreaView>

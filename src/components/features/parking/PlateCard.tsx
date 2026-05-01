@@ -1,27 +1,25 @@
-import dayjs from "dayjs";
-import "dayjs/locale/fr";
-import relativeTime from "dayjs/plugin/relativeTime";
 import {
   Clock,
   ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
 } from "lucide-react-native";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
+import { Plate } from "@/../../db/schema";
 import { ThemedText } from "@/components/ui";
 import { ThemedCard } from "@/components/ui/ThemedCard";
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useDayjs } from "@/hooks/useDayjs";
 import { useAppStore } from "@/utils/store";
-import { Plate } from "../../../../db/schema";
-
-dayjs.extend(relativeTime);
-dayjs.locale("fr");
 
 export function PlateCard(plate: Plate) {
   const theme = useTheme();
+  const day = useDayjs();
   const { setSelectedPlate } = useAppStore();
+  const { t } = useTranslation();
 
   const StatusIcon =
     plate.isAuthorized === null
@@ -39,8 +37,8 @@ export function PlateCard(plate: Plate) {
     plate.isAuthorized === null
       ? "Inconnu"
       : plate.isAuthorized
-        ? "Autorisé"
-        : "Non autorisé";
+        ? t("COMPONENTS.PlateCard.tagStatus.authorized")
+        : t("COMPONENTS.PlateCard.tagStatus.unauthorized");
 
   return (
     <TouchableOpacity onPress={() => setSelectedPlate(plate)}>
@@ -64,7 +62,10 @@ export function PlateCard(plate: Plate) {
             <View style={styles.lastSeenGroup}>
               <Clock size={10} color={theme.textSecondary} />
               <ThemedText type="small" themeColor="textSecondary">
-                Scanné {dayjs(plate.lastSeen).fromNow()}
+                {t("COMPONENTS.PlateCard.timeLeftInfo.lastScanWas").replace(
+                  "%%%",
+                  day(plate.lastSeen).fromNow(),
+                )}
               </ThemedText>
             </View>
           </View>
@@ -85,7 +86,10 @@ export function PlateCard(plate: Plate) {
                 type="small"
                 style={{ color: statusColor, opacity: 0.7 }}
               >
-                expire {dayjs(plate.authorizedUntil).fromNow()}
+                {t("COMPONENTS.PlateCard.timeLeftInfo.willExpireIn").replace(
+                  "%%%",
+                  day(plate.authorizedUntil).fromNow(),
+                )}
               </ThemedText>
             )}
           </View>

@@ -1,16 +1,12 @@
-import dayjs from "dayjs";
-import "dayjs/locale/fr";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { CalendarDays, Clock } from "lucide-react-native";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Switch, View } from "react-native";
 
 import { ThemedInput } from "@/components/common/ThemedInput";
 import { ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
-
-dayjs.extend(relativeTime);
-dayjs.locale("fr");
+import { useDayjs } from "@/hooks/useDayjs";
 
 const DURATIONS = [
   { label: "1 sem.", days: 7 },
@@ -50,17 +46,21 @@ export function AuthorizationForm({
   lastSeen,
 }: Props) {
   const theme = useTheme();
+  const { t, i18n } = useTranslation();
+  const day = useDayjs();
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.backgroundElement }]}>
+    <View
+      style={[styles.container, { backgroundColor: theme.backgroundElement }]}
+    >
       {/* Authorization toggle */}
       <View style={styles.toggleRow}>
         <View style={styles.toggleLabel}>
           <ThemedText type="default" style={{ fontWeight: "600" }}>
-            Autorisé
+            {t("COMPONENTS.BottomSheet.form.authorisation.label")}
           </ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
-            Accès autorisé à ce parking
+            {t("COMPONENTS.BottomSheet.form.authorisation.description")}
           </ThemedText>
         </View>
         <Switch
@@ -83,7 +83,13 @@ export function AuthorizationForm({
                   themeColor="textSecondary"
                   style={{ fontStyle: "italic" }}
                 >
-                  Jusqu'au {authorizedUntil?.toLocaleDateString("fr-FR")}
+                  {authorizedUntil &&
+                    t(
+                      "COMPONENTS.BottomSheet.form.authorizedUntil.description",
+                    ).replace(
+                      "%%%",
+                      authorizedUntil?.toLocaleDateString(i18n.language),
+                    )}
                 </ThemedText>
               </View>
               <Pressable hitSlop={8} onPress={onEditDate}>
@@ -91,14 +97,14 @@ export function AuthorizationForm({
                   type="small"
                   style={{ color: Colors.primary, fontWeight: "600" }}
                 >
-                  Modifier
+                  {t("GLOBAL.button.edit")}
                 </ThemedText>
               </Pressable>
             </View>
           ) : (
             <>
               <ThemedText type="small" themeColor="textSecondary">
-                Durée d'autorisation
+                {t("COMPONENTS.BottomSheet.form.authorizedUntil.label")}
               </ThemedText>
               <View style={styles.chips}>
                 {DURATIONS.map((d) => {
@@ -138,18 +144,22 @@ export function AuthorizationForm({
       )}
 
       {/* Divider */}
-      <View style={[styles.divider, { backgroundColor: theme.backgroundSheet }]} />
+      <View
+        style={[styles.divider, { backgroundColor: theme.backgroundSheet }]}
+      />
 
       <ThemedInput
-        label="Nom personnalisé"
-        placeholder="ex: Famille Martin"
+        label={t("COMPONENTS.BottomSheet.form.customName.label")}
+        placeholder={t("COMPONENTS.BottomSheet.form.customName.placeholder")}
         value={customName}
         onChangeText={onChangeCustomName}
       />
 
       <ThemedInput
-        label="Informations complémentaires"
-        placeholder="ex: Locataire appt. 3B"
+        label={t("COMPONENTS.BottomSheet.form.additionalData.label")}
+        placeholder={t(
+          "COMPONENTS.BottomSheet.form.additionalData.placeholder",
+        )}
         value={customInfos}
         onChangeText={onChangeCustomInfos}
         multiline
@@ -161,7 +171,10 @@ export function AuthorizationForm({
         <View style={styles.lastSeenRow}>
           <Clock size={13} color={theme.textSecondary} />
           <ThemedText type="small" themeColor="textSecondary">
-            Dernière détection · {dayjs(lastSeen).fromNow()}
+            {t("COMPONENTS.BottomSheet.lastScann").replace(
+              "%%%",
+              day(lastSeen).fromNow(),
+            )}
           </ThemedText>
         </View>
       )}

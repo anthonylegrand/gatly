@@ -1,11 +1,16 @@
 import { Spacing } from "@/constants";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function PlateIcon() {
+  const { t } = useTranslation();
+
   return (
     <View style={[styles.plateIcon, styles.plateBorder]}>
       <View style={styles.plateBorder}>
-        <Text style={styles.plateText}>ABC12X</Text>
+        <Text style={styles.plateText}>
+          {t("tabs_page.camera.PlateIconComponent.demoTextPlate")}
+        </Text>
       </View>
     </View>
   );

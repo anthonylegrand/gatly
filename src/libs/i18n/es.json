@@ -1,0 +1,136 @@
+{
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parking",
+      "camera_label": "Escáner"
+    },
+    "button": {
+      "next": "Siguiente",
+      "back": "Atrás",
+      "close": "Cerrar",
+      "save": "Guardar",
+      "edit": "Editar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "delete_parking": "Eliminar parking",
+      "add_plate_to_parking": "Añadir al parking"
+    },
+    "text": {
+      "X_vehicle": "%%% vehículo",
+      "X_vehicles": "%%% vehículos"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "No registrado en este parking",
+        "authorized": "Vehículo autorizado",
+        "unauthorized": "Vehículo no autorizado"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Autorizado",
+          "description": "¿Permitir el acceso a este parking?"
+        },
+        "authorizedUntil": {
+          "label": "Duración de la autorización",
+          "description": "Hasta el %%%"
+        },
+        "customName": {
+          "label": "Nombre personalizado",
+          "placeholder": "ej: Familia Martín"
+        },
+        "additionalData": {
+          "label": "Información adicional",
+          "placeholder": "ej: Inquilino apto. 3B"
+        }
+      },
+      "lastScan": "Última detección · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Autorizado",
+        "unauthorized": "No autorizado"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Escaneado %%%",
+        "willExpireIn": "Expira %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Gestiona tus accesos y vehículos fácilmente desde tu teléfono.",
+    "button": {
+      "title": "Empezar",
+      "subtitle": "Introducción"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Verificación instantánea",
+      "text": "Escanea una matrícula y comprueba de inmediato si el vehículo está autorizado. Consulta toda la información vinculada al instante."
+    },
+    "DatasPrivacy": {
+      "title": "Tus datos protegidos",
+      "text": "Todos los datos están regulados por el RGPD. Para la información personal, basta con un simple correo electrónico — la persona afectada recibe un enlace y elige lo que comparte. Puede eliminar sus datos en cualquier momento.",
+      "button": {
+        "title": "¡Vamos!"
+      }
+    }
+  },
+  "option_page": {
+    "ParkingsList": {
+      "title": "Mis parkings",
+      "no_parkings_message": "No se encontraron parkings. Crea uno para empezar."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Nuevo parking",
+        "edit": "Editar parking"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Nombre del parking",
+          "placeholder": "ej: Parking principal"
+        }
+      },
+      "button": {
+        "create": "Crear parking"
+      },
+      "alert_message": "¿Eliminar '%%%'? Esta acción no se puede deshacer."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Acceso a la cámara",
+      "description": "Gatly usa la cámara para escanear matrículas en tiempo real y asociarlas automáticamente a tu parking.",
+      "button": {
+        "accept": "Permitir cámara"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Autorizados",
+        "unknown": "Desconocidos"
+      },
+      "search_input": {
+        "placeholder": "Matrícula o nombre...",
+        "result_text": {
+          "query_no_result": "Sin resultados para \"%%%\"",
+          "no_plates": "No hay matrículas registradas"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Escanear una matrícula",
+      "description": "Coloca la matrícula dentro del marco de abajo",
+      "footer": "Más funciones próximamente"
+    }
+  }
+}

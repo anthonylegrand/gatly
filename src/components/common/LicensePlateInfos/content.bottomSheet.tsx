@@ -6,12 +6,14 @@ import {
   TriangleAlert,
 } from "lucide-react-native";
 import { useEffect, useMemo, useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Alert, Pressable, StyleSheet, View } from "react-native";
 
 import type { Plate } from "@/../db/schema";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useAppStore } from "@/utils/store";
+import usePersistantStore from "@/utils/store/usePersistantStore";
 import { AuthorizationForm } from "./AuthorizationForm";
 import { PlateVisual } from "./PlateVisual";
 
@@ -30,6 +32,8 @@ export default function ContentBottomSheet() {
     removePlate,
     setSelectedPlate,
   } = useAppStore();
+  const { scanCredits } = usePersistantStore();
+  const { t } = useTranslation();
 
   const isDetection = selectedPlate ? !("id" in selectedPlate) : false;
   const plateString = selectedPlate?.plate ?? "";
@@ -140,15 +144,14 @@ export default function ContentBottomSheet() {
       : TriangleAlert;
 
   const statusLabel = !isRegistered
-    ? "Non enregistré dans ce parking"
+    ? t("COMPONENTS.BottomSheet.plateStatus.notRegister")
     : registeredPlate.isAuthorized
-      ? "Véhicule autorisé"
-      : "Véhicule non autorisé";
+      ? t("COMPONENTS.BottomSheet.plateStatus.authorized")
+      : t("COMPONENTS.BottomSheet.plateStatus.unauthorized");
 
   return (
     <View style={styles.container}>
       <PlateVisual plate={plateString} country={country} />
-
       <View
         style={[
           styles.statusBanner,
@@ -183,7 +186,9 @@ export default function ContentBottomSheet() {
       />
 
       <ThemedButton icon={Save} onPress={handleSave}>
-        {isRegistered ? "Enregistrer" : "Ajouter au parking"}
+        {isRegistered
+          ? t("GLOBAL.button.save")
+          : t("GLOBAL.button.add_plate_to_parking")}
       </ThemedButton>
 
       <View style={styles.footer}>
@@ -191,8 +196,10 @@ export default function ContentBottomSheet() {
           variant="ghost"
           style={{ flex: 1 }}
           onPress={() => setSelectedPlate(null)}
+          onLongPress={() => Alert.alert("Debug", "Tokens: " + scanCredits)}
+          delayLongPress={3000}
         >
-          Fermer
+          {t("GLOBAL.button.close")}
         </ThemedButton>
         {isRegistered && (
           <Pressable style={styles.deleteBtn} onPress={handleDelete}>

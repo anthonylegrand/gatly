@@ -1,4 +1,136 @@
 {
-  "welcome": "Bienvenue dans l'application !",
-  "change_lang": "Changer de langue"
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parking",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Suivant",
+      "back": "Retour",
+      "close": "Fermer",
+      "save": "Enregistrer",
+      "edit": "Modifier",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "delete_parking": "Supprimer le parking",
+      "add_plate_to_parking": "Ajouter au parking"
+    },
+    "text": {
+      "X_vehicle": "%%% véhicule",
+      "X_vehicles": "%%% véhicules"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Non enregistré dans ce parking",
+        "authorized": "Véhicule autorisé",
+        "unauthorized": "Véhicule non autorisé"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Autorisé",
+          "description": "Autoriser l'accès à ce parking ?"
+        },
+        "authorizedUntil": {
+          "label": "Durée d'autorisation",
+          "description": "Jusqu'au %%%"
+        },
+        "customName": {
+          "label": "Nom personnalisé",
+          "placeholder": "ex : Famille Martin"
+        },
+        "additionalData": {
+          "label": "Informations complémentaires",
+          "placeholder": "ex : Locataire appt. 3B"
+        }
+      },
+      "lastScan": "Dernière détection · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Autorisé",
+        "unauthorized": "Non autorisé"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Scanné %%%",
+        "willExpireIn": "Expire %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Gérez vos accès et vos véhicules facilement depuis votre téléphone.",
+    "button": {
+      "title": "Commencer",
+      "subtitle": "Introduction"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Vérification instantanée",
+      "text": "Scannez une plaque d'immatriculation et voyez immédiatement si le véhicule est autorisé. Consultez toutes les informations associées en un instant."
+    },
+    "DatasPrivacy": {
+      "title": "Vos données protégées",
+      "text": "Toutes les données sont régies par le RGPD. Pour les informations personnelles, un simple e-mail suffit — la personne concernée reçoit un lien et choisit ce qu'elle partage. Elle peut supprimer ses données à tout moment.",
+      "button": {
+        "title": "C'est parti"
+      }
+    }
+  },
+  "option_page": {
+    "ParkingsList": {
+      "title": "Mes parkings",
+      "no_parkings_message": "Aucun parking trouvé. Créez-en un pour commencer."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Nouveau parking",
+        "edit": "Modifier le parking"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Nom du parking",
+          "placeholder": "ex : Parking principal"
+        }
+      },
+      "button": {
+        "create": "Créer le parking"
+      },
+      "alert_message": "Supprimer « %%% » ? Cette action est irréversible."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Accès à la caméra",
+      "description": "Gatly utilise la caméra pour scanner les plaques d'immatriculation en temps réel et les associer automatiquement à votre parking.",
+      "button": {
+        "accept": "Autoriser la caméra"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Autorisés",
+        "unknown": "Inconnus"
+      },
+      "search_input": {
+        "placeholder": "Plaque ou nom...",
+        "result_text": {
+          "query_no_result": "Aucun résultat pour « %%% »",
+          "no_plates": "Aucune plaque enregistrée"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Scanner une plaque",
+      "description": "Positionnez la plaque d'immatriculation dans le cadre ci-dessous",
+      "footer": "D'autres fonctionnalités arrivent bientôt"
+    }
+  }
 }
