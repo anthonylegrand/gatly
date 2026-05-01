@@ -25,6 +25,7 @@ export const PLATE_FORMATS: Record<PlateCountry, RegExp> = {
   CH: /^[A-Z]{2}\d{1,6}$/,
   BE: /^[1-9]-[A-Z]{3}-\d{3}$/,
   LU: /^[A-Z]{2}\d{4}$/,
+  PT: /^([A-Z]{2}-\d{2}-\d{2}|\d{2}-[A-Z]{2}-\d{2}|\d{2}-\d{2}-[A-Z]{2})$/,
 };
 
 export const RECONSTRUCT: Record<PlateCountry, (n: string) => string | null> = {
@@ -49,6 +50,10 @@ export const RECONSTRUCT: Record<PlateCountry, (n: string) => string | null> = {
   BE: (n) =>
     n.length === 7 ? `${n[0]}-${n.slice(1, 4)}-${n.slice(4, 7)}` : null,
   LU: (n) => (n.length === 6 ? n : null),
+  PT: (n) =>
+    n.length === 6
+      ? `${n.slice(0, 2)}-${n.slice(2, 4)}-${n.slice(4, 6)}`
+      : null,
 };
 
 const FR_LETTERS = "ABCDEFGHJKLMNPQRSTVWXYZ";
@@ -90,6 +95,8 @@ export function generateFakePlate(country: PlateCountry): string {
       return `${rndInt(1, 9)}-${rndStr(ALL_LETTERS, 3)}-${String(rndInt(0, 999)).padStart(3, "0")}`;
     case "LU":
       return `${rndStr(ALL_LETTERS, 2)}${String(rndInt(0, 9999)).padStart(4, "0")}`;
+    case "PT":
+      return `${String(rndInt(0, 99)).padStart(2, "0")}-${String(rndInt(0, 99)).padStart(2, "0")}-${rndStr(ALL_LETTERS, 2)}`;
     default:
       return assertNever(country);
   }

@@ -1,0 +1,147 @@
+{
+  "language_name": "Português",
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parque",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Seguinte",
+      "back": "Voltar",
+      "close": "Fechar",
+      "save": "Guardar",
+      "edit": "Editar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "delete_parking": "Eliminar parque",
+      "add_plate_to_parking": "Adicionar ao parque"
+    },
+    "text": {
+      "X_vehicle": "%%% veículo",
+      "X_vehicles": "%%% veículos"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Não registado neste parque",
+        "authorized": "Veículo autorizado",
+        "unauthorized": "Veículo não autorizado"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Autorizado",
+          "description": "Permitir acesso a este parque?"
+        },
+        "authorizedUntil": {
+          "label": "Duração da autorização",
+          "description": "Até %%%"
+        },
+        "customName": {
+          "label": "Nome personalizado",
+          "placeholder": "ex.: Família Martins"
+        },
+        "additionalData": {
+          "label": "Informações adicionais",
+          "placeholder": "ex.: Inquilino apto. 3B"
+        }
+      },
+      "lastScan": "Última deteção · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Autorizado",
+        "unauthorized": "Não autorizado"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Digitalizado %%%",
+        "willExpireIn": "Expira %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Scanner de Matrículas",
+    "intro": "Gira os seus acessos e veículos facilmente a partir do telemóvel.",
+    "button": {
+      "title": "Começar",
+      "subtitle": "Introdução"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Verificação Instantânea",
+      "text": "Digitalize uma matrícula e veja imediatamente se o veículo está autorizado. Consulte todas as informações associadas num instante."
+    },
+    "DatasPrivacy": {
+      "title": "Os Seus Dados Protegidos",
+      "text": "Todos os dados são regidos pelo RGPD. Para informações pessoais, basta um simples e-mail — a pessoa em causa recebe um link e escolhe o que partilha. Pode eliminar os seus dados a qualquer momento.",
+      "button": {
+        "title": "Vamos lá"
+      }
+    }
+  },
+  "option_page": {
+    "ScannablePlates": {
+      "title": "Países detetáveis",
+      "description": "Escolha até %%% formatos de matrícula para detetar durante a digitalização.",
+      "limit_reached": "Limite de %%% países atingido",
+      "no_selection": "Selecione pelo menos um país"
+    },
+    "AppLanguage": {
+      "title": "Idioma da Aplicação",
+      "description": "Escolha o idioma em que pretende utilizar a aplicação."
+    },
+    "ParkingsList": {
+      "title": "Os Meus Parques",
+      "no_parkings_message": "Nenhum parque encontrado. Crie um para começar."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Novo Parque",
+        "edit": "Editar Parque"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Nome do Parque",
+          "placeholder": "ex.: Parque Principal"
+        }
+      },
+      "button": {
+        "create": "Criar Parque"
+      },
+      "alert_message": "Eliminar '%%%'? Esta ação não pode ser desfeita."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Acesso à Câmara",
+      "description": "O Gatly utiliza a câmara para digitalizar matrículas em tempo real e associá-las automaticamente ao seu parque de estacionamento.",
+      "button": {
+        "accept": "Permitir Câmara"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Autorizado",
+        "unknown": "Desconhecido"
+      },
+      "search_input": {
+        "placeholder": "Matrícula ou nome...",
+        "result_text": {
+          "query_no_result": "Sem resultados para \"%%%\"",
+          "no_plates": "Nenhuma matrícula registada"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Digitalizar uma matrícula",
+      "description": "Posicione a matrícula dentro da moldura abaixo",
+      "footer": "Formatos de matrículas ativados para deteção"
+    }
+  }
+}

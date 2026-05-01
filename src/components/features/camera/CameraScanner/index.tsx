@@ -36,7 +36,7 @@ const SCAN_REGION: ScanRegion = {
 
 const COUNTRY_FLAGS: Record<string, string> = {
   FR: "🇫🇷", EN: "🇬🇧", ES: "🇪🇸", DE: "🇩🇪",
-  NL: "🇳🇱", IT: "🇮🇹", PL: "🇵🇱", CH: "🇨🇭", BE: "🇧🇪", LU: "🇱🇺",
+  NL: "🇳🇱", IT: "🇮🇹", PL: "🇵🇱", CH: "🇨🇭", BE: "🇧🇪", LU: "🇱🇺", PT: "🇵🇹",
 };
 
 const FRAME_SKIP_THRESHOLD = 30;

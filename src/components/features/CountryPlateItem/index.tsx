@@ -17,6 +17,7 @@ export const COUNTRY_META: Record<PlateCountry, { flag: string; name: string }> 
   CH: { flag: "🇨🇭", name: "Schweiz" },
   BE: { flag: "🇧🇪", name: "Belgique" },
   LU: { flag: "🇱🇺", name: "Luxembourg" },
+  PT: { flag: "🇵🇹", name: "Portugal" },
 };
 
 export const EXAMPLE_PLATES: Record<PlateCountry, string> = Object.fromEntries(
