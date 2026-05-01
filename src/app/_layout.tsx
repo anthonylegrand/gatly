@@ -6,6 +6,8 @@ import { runMigrations } from "@/../db/migrations";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
+import "@/libs/i18n";
+
 export default function RootLayout() {
   const theme = useTheme();
   const [ready, setReady] = useState(false);

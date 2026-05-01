@@ -30,6 +30,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-localization",
       [
         "react-native-vision-camera",
         {
@@ -50,7 +51,8 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-2586509557098502~6978159274"
+          "androidAppId": "ca-app-pub-2586509557098502~6978159274",
+          "iosAppId": "ca-app-pub-"
         }
       ]
     ],
