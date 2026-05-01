@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Wykrywalne kraje",
+      "description": "Wybierz do %%% formatów tablic do wykrywania podczas skanowania.",
+      "limit_reached": "Osiągnięto limit %%% krajów",
+      "no_selection": "Wybierz co najmniej jeden kraj"
+    },
     "AppLanguage": {
       "title": "Język aplikacji",
       "description": "Wybierz język, w którym chcesz używać aplikacji."
@@ -135,7 +141,7 @@
       },
       "title": "Skanuj tablicę",
       "description": "Umieść tablicę rejestracyjną w ramce poniżej",
-      "footer": "Więcej funkcji już wkrótce"
+      "footer": "Włączone formaty tablic do wykrywania"
     }
   }
 }

@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Erkennbare Länder",
+      "description": "Wählen Sie bis zu %%% Kennzeichenformate für die Erkennung beim Scannen.",
+      "limit_reached": "Limit von %%% Ländern erreicht",
+      "no_selection": "Wähle mindestens ein Land"
+    },
     "AppLanguage": {
       "title": "App-Sprache",
       "description": "Wähle die Sprache, in der du die Anwendung verwenden möchtest."
@@ -135,7 +141,7 @@
       },
       "title": "Kennzeichen scannen",
       "description": "Positionieren Sie das Kennzeichen im Rahmen unten",
-      "footer": "Weitere Funktionen folgen in Kürze"
+      "footer": "Aktivierte Kennzeichenformate für die Erkennung"
     }
   }
 }

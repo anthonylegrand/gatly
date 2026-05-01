@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Detecteerbare landen",
+      "description": "Kies tot %%% kentekenformaten om te detecteren tijdens het scannen.",
+      "limit_reached": "Limiet van %%% landen bereikt",
+      "no_selection": "Selecteer minimaal één land"
+    },
     "AppLanguage": {
       "title": "Taal van de app",
       "description": "Kies de taal waarin je de applicatie wilt gebruiken."
@@ -135,7 +141,7 @@
       },
       "title": "Een kenteken scannen",
       "description": "Plaats het kenteken binnen het kader hieronder",
-      "footer": "Meer functies komen binnenkort"
+      "footer": "Kentekenformaten ingeschakeld voor detectie"
     }
   }
 }

@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Detectable countries",
+      "description": "Choose up to %%% plate formats to detect during scanning.",
+      "limit_reached": "Limit of %%% countries reached",
+      "no_selection": "Select at least one country"
+    },
     "AppLanguage": {
       "title": "App Language",
       "description": "Choose the language in which you want to use the application."
@@ -135,7 +141,7 @@
       },
       "title": "Scan a plate",
       "description": "Position the license plate within the frame below",
-      "footer": "More features coming soon"
+      "footer": "Plate formats enabled for detection"
     }
   }
 }

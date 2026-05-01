@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Paesi rilevabili",
+      "description": "Scegli fino a %%% formati di targa da rilevare durante la scansione.",
+      "limit_reached": "Limite di %%% paesi raggiunto",
+      "no_selection": "Seleziona almeno un paese"
+    },
     "AppLanguage": {
       "title": "Lingua dell'applicazione",
       "description": "Scegli la lingua in cui vuoi usare l'applicazione."
@@ -135,7 +141,7 @@
       },
       "title": "Scansiona una targa",
       "description": "Posiziona la targa all'interno del riquadro qui sotto",
-      "footer": "Altre funzionalità in arrivo"
+      "footer": "Formati di targa abilitati per il rilevamento"
     }
   }
 }

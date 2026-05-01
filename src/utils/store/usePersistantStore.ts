@@ -4,6 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+export const MAX_SCANNABLE_PLATES = 5;
+
 type PersistantState = {
   scannablePlateCountry: PlateCountry[];
   setScannablePlateCountry: (list: PlateCountry[]) => void;

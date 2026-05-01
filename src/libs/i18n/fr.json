@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Pays détectables",
+      "description": "Choisissez jusqu'à %%% formats de plaques à détecter lors du scan.",
+      "limit_reached": "Limite de %%% pays atteinte",
+      "no_selection": "Sélectionnez au moins un pays"
+    },
     "AppLanguage": {
       "title": "Langue de l'application",
       "description": "Choisissez la langue dans laquelle vous souhaitez utiliser l'application."
@@ -135,7 +141,7 @@
       },
       "title": "Scanner une plaque",
       "description": "Positionnez la plaque d'immatriculation dans le cadre ci-dessous",
-      "footer": "D'autres fonctionnalités arrivent bientôt"
+      "footer": "Formats de plaques activés pour la détection"
     }
   }
 }

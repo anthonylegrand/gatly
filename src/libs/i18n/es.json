@@ -81,6 +81,12 @@
     }
   },
   "option_page": {
+    "ScannablePlates": {
+      "title": "Países detectables",
+      "description": "Elige hasta %%% formatos de matrícula para detectar durante el escaneo.",
+      "limit_reached": "Límite de %%% países alcanzado",
+      "no_selection": "Selecciona al menos un país"
+    },
     "AppLanguage": {
       "title": "Idioma de la aplicación",
       "description": "Elige el idioma en el que deseas usar la aplicación."
@@ -135,7 +141,7 @@
       },
       "title": "Escanear una matrícula",
       "description": "Coloca la matrícula dentro del marco de abajo",
-      "footer": "Más funciones próximamente"
+      "footer": "Formatos de matrícula activados para la detección"
     }
   }
 }
