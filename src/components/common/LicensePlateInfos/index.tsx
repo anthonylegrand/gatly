@@ -3,17 +3,35 @@ import { useEffect, useRef } from "react";
 
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useRewardedInterstitial } from "@/libs/admob/admob-interstitial.lib";
 import { useAppStore } from "@/utils/store";
+import usePersistantStore from "@/utils/store/usePersistantStore";
 import ContentBottomSheet from "./content.bottomSheet";
 
 export default function LicensePlateInfos() {
   const theme = useTheme();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { selectedPlate, setSelectedPlate } = useAppStore();
+  const { scanCredits, removeScanCredits, addScanCredits } =
+    usePersistantStore();
+
+  const { show: showAd, load: loadAd } = useRewardedInterstitial({
+    onRewarded: (_, amount) => addScanCredits(amount),
+  });
 
   useEffect(() => {
-    if (selectedPlate) bottomSheetRef.current?.present();
-    else bottomSheetRef.current?.close();
+    const isLastCredit = scanCredits <= 1;
+
+    if (selectedPlate) {
+      removeScanCredits(1);
+      if (isLastCredit) loadAd(); // Précharger à l'ouverture
+
+      bottomSheetRef.current?.present();
+    } else {
+      if (isLastCredit) showAd(); // Afficher à la fermeture
+
+      bottomSheetRef.current?.close();
+    }
   }, [selectedPlate]);
 
   return (

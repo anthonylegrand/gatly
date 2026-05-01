@@ -7,6 +7,10 @@ type PersistantState = {
   scannablePlateCountry: PlateCountry[];
   setScannablePlateCountry: (list: PlateCountry[]) => void;
 
+  scanCredits: number;
+  addScanCredits: (value: number) => void;
+  removeScanCredits: (value: number) => void;
+
   _hasHydrated: boolean;
   setHasHydrated: (value: boolean) => void;
 };
@@ -16,6 +20,16 @@ const usePersistantStore = create<PersistantState>()(
     (set) => ({
       scannablePlateCountry: PLATE_COUNTRIES,
       setScannablePlateCountry: (list) => set({ scannablePlateCountry: list }),
+
+      scanCredits: 20,
+      addScanCredits: (value) =>
+        set((state) => ({
+          scanCredits: state.scanCredits + value,
+        })),
+      removeScanCredits: (value) =>
+        set((state) => ({
+          scanCredits: Math.max(0, state.scanCredits - value),
+        })),
 
       _hasHydrated: false,
       setHasHydrated: (value) => set({ _hasHydrated: value }),

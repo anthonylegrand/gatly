@@ -1,7 +1,10 @@
 import { useIsFocused } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import {
   Camera,
   useCameraDevice,
@@ -15,7 +18,7 @@ import type { Text } from "react-native-vision-camera-ocr-plus";
 
 import { ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
-import { AdBanner } from "@/libs/admob.lib";
+import { AdBanner } from "@/libs/admob/admob-banner.lib";
 import { detectPlate } from "@/libs/plate-reader.lib";
 import { useAppStore } from "@/utils/store";
 import usePersistantStore from "@/utils/store/usePersistantStore";
@@ -38,8 +41,9 @@ export function CameraScanner() {
   const isFocused = useIsFocused();
   const { selectedPlate, setSelectedPlate, plates, updatePlate } =
     useAppStore();
-  const { scannablePlateCountry, setScannablePlateCountry } =
-    usePersistantStore();
+  const { scannablePlateCountry } = usePersistantStore();
+  const insets = useSafeAreaInsets();
+
   const hasPlate = useRef(Worklets.createSharedValue(false));
   const platesRef = useRef(plates);
 
@@ -100,7 +104,7 @@ export function CameraScanner() {
   if (!device) return null;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { paddingTop: -insets.top }]}>
       <AdBanner />
 
       <View style={styles.content}>

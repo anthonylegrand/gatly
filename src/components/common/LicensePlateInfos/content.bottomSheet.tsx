@@ -93,6 +93,7 @@ export default function ContentBottomSheet() {
     } else {
       await addPlate({ plate: plateString, country, ...payload });
     }
+
     setSelectedPlate(null);
   };
 
