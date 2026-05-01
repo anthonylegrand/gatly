@@ -1,0 +1,141 @@
+{
+  "language_name": "Nederlands",
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parkeren",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Volgende",
+      "back": "Terug",
+      "close": "Sluiten",
+      "save": "Opslaan",
+      "edit": "Bewerken",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "delete_parking": "Parkeerplaats verwijderen",
+      "add_plate_to_parking": "Toevoegen aan parkeerplaats"
+    },
+    "text": {
+      "X_vehicle": "%%% voertuig",
+      "X_vehicles": "%%% voertuigen"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Niet geregistreerd in deze parkeerplaats",
+        "authorized": "Voertuig toegestaan",
+        "unauthorized": "Voertuig niet toegestaan"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Toegestaan",
+          "description": "Toegang verlenen tot deze parkeerplaats?"
+        },
+        "authorizedUntil": {
+          "label": "Duur van de toestemming",
+          "description": "Tot %%%"
+        },
+        "customName": {
+          "label": "Aangepaste naam",
+          "placeholder": "bijv. Familie Janssen"
+        },
+        "additionalData": {
+          "label": "Aanvullende informatie",
+          "placeholder": "bijv. Huurder apt. 3B"
+        }
+      },
+      "lastScan": "Laatste detectie · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Toegestaan",
+        "unauthorized": "Niet toegestaan"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Gescand %%%",
+        "willExpireIn": "Verloopt %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Beheer uw toegang en voertuigen eenvoudig vanaf uw telefoon.",
+    "button": {
+      "title": "Aan de slag",
+      "subtitle": "Introductie"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Directe verificatie",
+      "text": "Scan een kenteken en zie onmiddellijk of het voertuig is toegestaan. Bekijk alle gekoppelde informatie in één oogopslag."
+    },
+    "DatasPrivacy": {
+      "title": "Uw gegevens beschermd",
+      "text": "Alle gegevens worden beheerd conform de AVG. Voor persoonlijke informatie volstaat een eenvoudige e-mail — de betrokkene ontvangt een link en kiest wat hij deelt. Hij kan zijn gegevens op elk moment verwijderen.",
+      "button": {
+        "title": "Aan de slag"
+      }
+    }
+  },
+  "option_page": {
+    "AppLanguage": {
+      "title": "Taal van de app",
+      "description": "Kies de taal waarin je de applicatie wilt gebruiken."
+    },
+    "ParkingsList": {
+      "title": "Mijn parkeerplaatsen",
+      "no_parkings_message": "Geen parkeerplaatsen gevonden. Maak er een aan om te beginnen."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Nieuwe parkeerplaats",
+        "edit": "Parkeerplaats bewerken"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Naam parkeerplaats",
+          "placeholder": "bijv. Hoofdparkeerplaats"
+        }
+      },
+      "button": {
+        "create": "Parkeerplaats aanmaken"
+      },
+      "alert_message": "'%%%' verwijderen? Deze actie kan niet ongedaan worden gemaakt."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Cameratoegang",
+      "description": "Gatly gebruikt de camera om kentekens in real-time te scannen en automatisch te koppelen aan uw parkeerplaats.",
+      "button": {
+        "accept": "Camera toestaan"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Toegestaan",
+        "unknown": "Onbekend"
+      },
+      "search_input": {
+        "placeholder": "Kenteken of naam...",
+        "result_text": {
+          "query_no_result": "Geen resultaten voor \"%%%\"",
+          "no_plates": "Geen kentekens geregistreerd"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Een kenteken scannen",
+      "description": "Plaats het kenteken binnen het kader hieronder",
+      "footer": "Meer functies komen binnenkort"
+    }
+  }
+}

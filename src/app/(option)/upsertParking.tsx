@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ArrowLeft, Trash2 } from "lucide-react-native";
+import { ArrowLeft, Globe, Trash2 } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -86,7 +86,9 @@ export default function UpsertParkingScreen() {
               ? t("option_page.UpsertParking.title.edit")
               : t("option_page.UpsertParking.title.create")}
           </ThemedText>
-          <View style={{ width: 22 }} />
+          <Pressable hitSlop={8} onPress={() => router.push("/(option)/appLanguage")}>
+            <Globe size={20} color={theme.textSecondary} />
+          </Pressable>
         </View>
 
         <View style={styles.section}>

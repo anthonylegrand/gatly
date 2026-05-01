@@ -1,12 +1,14 @@
 import { useRouter } from "expo-router";
 import type { LucideIcon } from "lucide-react-native";
-import { StyleSheet, View } from "react-native";
+import { Globe } from "lucide-react-native";
+import { useTranslation } from "react-i18next";
+import { Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { LangChipButton } from "@/components/common/LangChipButton";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
-import { useTranslation } from "react-i18next";
 
 type Props = {
   icon: LucideIcon;
@@ -35,6 +37,15 @@ export function IntroPage({
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
+      <View style={styles.topBar}>
+        <Pressable
+          hitSlop={8}
+          onPress={() => router.push("/(option)/appLanguage")}
+        >
+          <Globe size={20} color={theme.textSecondary} />
+        </Pressable>
+      </View>
+
       <View style={styles.content}>
         <View style={styles.iconWrapper}>
           <View style={styles.iconGlow} />
@@ -56,6 +67,8 @@ export function IntroPage({
       </View>
 
       <View style={styles.footer}>
+        <LangChipButton />
+
         <View style={styles.dots}>
           {Array.from({ length: total }).map((_, i) => (
             <View
@@ -131,6 +144,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     gap: Spacing.three,
+  },
+  topBar: {
+    alignItems: "flex-end",
   },
   dots: {
     flexDirection: "row",

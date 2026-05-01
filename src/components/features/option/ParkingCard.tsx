@@ -4,8 +4,8 @@ import { Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { ThemedText } from "@/components/ui";
 import { ThemedCard } from "@/components/ui/ThemedCard";
 import { Colors, Spacing } from "@/constants";
-import { useDayjs } from "@/hooks/useDayjs";
 import { useTheme } from "@/hooks/theme/useTheme";
+import { useDayjs } from "@/hooks/useDayjs";
 import type { ParkingWithCount } from "@/utils/services/parking.service";
 import { useTranslation } from "react-i18next";
 
@@ -48,8 +48,8 @@ export function ParkingCard({ parking, isSelected, onSelect, onEdit }: Props) {
                 <ThemedText type="small" themeColor="textSecondary">
                   {t(
                     plateCount > 1
-                      ? "GLOBAL.text.X_véhicules"
-                      : "GLOBAL.text.X_véhicule",
+                      ? "GLOBAL.text.X_vehicles"
+                      : "GLOBAL.text.X_vehicle",
                   ).replace("%%%", plateCount.toString())}
                 </ThemedText>
               </View>

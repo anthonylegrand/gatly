@@ -1,0 +1,141 @@
+{
+  "language_name": "Polski",
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parking",
+      "camera_label": "Skaner"
+    },
+    "button": {
+      "next": "Dalej",
+      "back": "Wstecz",
+      "close": "Zamknij",
+      "save": "Zapisz",
+      "edit": "Edytuj",
+      "cancel": "Anuluj",
+      "delete": "Usuń",
+      "delete_parking": "Usuń parking",
+      "add_plate_to_parking": "Dodaj do parkingu"
+    },
+    "text": {
+      "X_vehicle": "%%% pojazd",
+      "X_vehicles": "%%% pojazdy"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Niezarejestrowany w tym parkingu",
+        "authorized": "Pojazd dozwolony",
+        "unauthorized": "Pojazd niedozwolony"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Dozwolony",
+          "description": "Zezwolić na dostęp do tego parkingu?"
+        },
+        "authorizedUntil": {
+          "label": "Czas trwania zezwolenia",
+          "description": "Do %%%"
+        },
+        "customName": {
+          "label": "Nazwa własna",
+          "placeholder": "np. Rodzina Kowalskich"
+        },
+        "additionalData": {
+          "label": "Informacje dodatkowe",
+          "placeholder": "np. Najemca mieszk. 3B"
+        }
+      },
+      "lastScan": "Ostatnie wykrycie · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Dozwolony",
+        "unauthorized": "Niedozwolony"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Zeskanowano %%%",
+        "willExpireIn": "Wygasa %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Zarządzaj dostępami i pojazdami łatwo z poziomu telefonu.",
+    "button": {
+      "title": "Rozpocznij",
+      "subtitle": "Wprowadzenie"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Natychmiastowa weryfikacja",
+      "text": "Zeskanuj tablicę rejestracyjną i od razu sprawdź, czy pojazd jest dozwolony. Wyświetl wszystkie powiązane informacje w mgnieniu oka."
+    },
+    "DatasPrivacy": {
+      "title": "Twoje dane chronione",
+      "text": "Wszystkie dane są zarządzane zgodnie z RODO. W przypadku danych osobowych wystarczy prosty e-mail — zainteresowana osoba otrzymuje link i sama decyduje, co udostępnia. W każdej chwili może usunąć swoje dane.",
+      "button": {
+        "title": "Zaczynamy!"
+      }
+    }
+  },
+  "option_page": {
+    "AppLanguage": {
+      "title": "Język aplikacji",
+      "description": "Wybierz język, w którym chcesz używać aplikacji."
+    },
+    "ParkingsList": {
+      "title": "Moje parkingi",
+      "no_parkings_message": "Nie znaleziono parkingów. Utwórz jeden, aby zacząć."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Nowy parking",
+        "edit": "Edytuj parking"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Nazwa parkingu",
+          "placeholder": "np. Parking główny"
+        }
+      },
+      "button": {
+        "create": "Utwórz parking"
+      },
+      "alert_message": "Usunąć '%%%'? Tej akcji nie można cofnąć."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Dostęp do kamery",
+      "description": "Gatly używa kamery do skanowania tablic rejestracyjnych w czasie rzeczywistym i automatycznego przypisywania ich do Twojego parkingu.",
+      "button": {
+        "accept": "Zezwól na kamerę"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Dozwolone",
+        "unknown": "Nieznane"
+      },
+      "search_input": {
+        "placeholder": "Tablica lub nazwa...",
+        "result_text": {
+          "query_no_result": "Brak wyników dla %%%",
+          "no_plates": "Brak zarejestrowanych tablic"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Skanuj tablicę",
+      "description": "Umieść tablicę rejestracyjną w ramce poniżej",
+      "footer": "Więcej funkcji już wkrótce"
+    }
+  }
+}

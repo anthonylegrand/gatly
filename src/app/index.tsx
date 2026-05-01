@@ -1,9 +1,11 @@
 import { useRouter } from "expo-router";
+import { Globe } from "lucide-react-native";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { LangChipButton } from "@/components/common/LangChipButton";
 import { Spacer } from "@/components/common/Spacer";
 import { AnimatedIcon } from "@/components/features/setup/AnimatedIcon";
 import { ThemedButton, ThemedText } from "@/components/ui";
@@ -34,6 +36,15 @@ export default function Index() {
     <SafeAreaView
       style={[styles.container, { backgroundColor: theme.background }]}
     >
+      <View style={styles.topBar}>
+        <Pressable
+          hitSlop={8}
+          onPress={() => router.push("/(option)/appLanguage")}
+        >
+          <Globe size={20} color={theme.textSecondary} />
+        </Pressable>
+      </View>
+
       <View style={styles.content}>
         <AnimatedIcon />
 
@@ -55,12 +66,16 @@ export default function Index() {
         </View>
       </View>
 
-      <ThemedButton
-        subtitle={t("welcome_page.button.subtitle")}
-        onPress={() => router.push("/(intro)/introScreen1")}
-      >
-        {t("welcome_page.button.title")}
-      </ThemedButton>
+      <View style={styles.footer}>
+        <LangChipButton />
+
+        <ThemedButton
+          subtitle={t("welcome_page.button.subtitle")}
+          onPress={() => router.push("/(intro)/introScreen1")}
+        >
+          {t("welcome_page.button.title")}
+        </ThemedButton>
+      </View>
     </SafeAreaView>
   );
 }
@@ -88,5 +103,11 @@ const styles = StyleSheet.create({
   intro: {
     textAlign: "center",
     lineHeight: 22,
+  },
+  topBar: {
+    alignItems: "flex-end",
+  },
+  footer: {
+    gap: Spacing.three,
   },
 });

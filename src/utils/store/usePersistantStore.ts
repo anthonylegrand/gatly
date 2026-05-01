@@ -1,4 +1,5 @@
 import { PLATE_COUNTRIES, PlateCountry } from "@/constants";
+import i18n from "@/libs/i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -10,6 +11,9 @@ type PersistantState = {
   scanCredits: number;
   addScanCredits: (value: number) => void;
   removeScanCredits: (value: number) => void;
+
+  appLanguage: string | null;
+  setAppLanguage: (code: string) => void;
 
   _hasHydrated: boolean;
   setHasHydrated: (value: boolean) => void;
@@ -31,6 +35,9 @@ const usePersistantStore = create<PersistantState>()(
           scanCredits: Math.max(0, state.scanCredits - value),
         })),
 
+      appLanguage: null,
+      setAppLanguage: (code) => set({ appLanguage: code }),
+
       _hasHydrated: false,
       setHasHydrated: (value) => set({ _hasHydrated: value }),
     }),
@@ -38,6 +45,10 @@ const usePersistantStore = create<PersistantState>()(
       name: "gatly-storage",
       storage: createJSONStorage(() => AsyncStorage),
       onRehydrateStorage: () => (state) => {
+        if (state?.appLanguage) {
+          i18n.changeLanguage(state.appLanguage);
+        }
+        if ((state?.scanCredits || 0) < 3) state?.addScanCredits(3);
         state?.setHasHydrated(true);
       },
     },

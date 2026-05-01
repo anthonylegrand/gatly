@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { ChevronDown, Search, Settings2 } from "lucide-react-native";
+import { ChevronDown, Globe, Search, Settings2 } from "lucide-react-native";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -64,24 +64,32 @@ export default function ParkingScreen() {
             <ThemedText type="small" themeColor="textSecondary">
               {t(
                 plates.length > 1
-                  ? "GLOBAL.text.X_véhicules"
-                  : "GLOBAL.text.X_véhicule",
+                  ? "GLOBAL.text.X_vehicles"
+                  : "GLOBAL.text.X_vehicle",
               ).replace("%%%", plates.length.toString())}
             </ThemedText>
           </View>
           <ChevronDown size={16} color={theme.textSecondary} />
         </Pressable>
-        <Pressable
-          hitSlop={8}
-          onPress={() =>
-            router.push({
-              pathname: "/(option)/upsertParking",
-              params: { id: selectedParking?.id },
-            })
-          }
-        >
-          <Settings2 size={20} color={theme.textSecondary} />
-        </Pressable>
+        <View style={styles.headerActions}>
+          <Pressable
+            hitSlop={8}
+            onPress={() => router.push("/(option)/appLanguage")}
+          >
+            <Globe size={20} color={theme.textSecondary} />
+          </Pressable>
+          <Pressable
+            hitSlop={8}
+            onPress={() =>
+              router.push({
+                pathname: "/(option)/upsertParking",
+                params: { id: selectedParking?.id },
+              })
+            }
+          >
+            <Settings2 size={20} color={theme.textSecondary} />
+          </Pressable>
+        </View>
       </View>
 
       <ScrollView
@@ -182,6 +190,11 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 1,
     paddingHorizontal: Spacing.three,
+  },
+  headerActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: Spacing.three,
   },
   searchBar: {
     flexDirection: "row",

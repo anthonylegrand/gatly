@@ -1,0 +1,141 @@
+{
+  "language_name": "Italiano",
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parcheggio",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Avanti",
+      "back": "Indietro",
+      "close": "Chiudi",
+      "save": "Salva",
+      "edit": "Modifica",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "delete_parking": "Elimina parcheggio",
+      "add_plate_to_parking": "Aggiungi al parcheggio"
+    },
+    "text": {
+      "X_vehicle": "%%% veicolo",
+      "X_vehicles": "%%% veicoli"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Non registrato in questo parcheggio",
+        "authorized": "Veicolo autorizzato",
+        "unauthorized": "Veicolo non autorizzato"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Autorizzato",
+          "description": "Consentire l'accesso a questo parcheggio?"
+        },
+        "authorizedUntil": {
+          "label": "Durata dell'autorizzazione",
+          "description": "Fino al %%%"
+        },
+        "customName": {
+          "label": "Nome personalizzato",
+          "placeholder": "es. Famiglia Rossi"
+        },
+        "additionalData": {
+          "label": "Informazioni aggiuntive",
+          "placeholder": "es. Inquilino app. 3B"
+        }
+      },
+      "lastScan": "Ultimo rilevamento · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Autorizzato",
+        "unauthorized": "Non autorizzato"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Scansionato %%%",
+        "willExpireIn": "Scade %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Gestisci i tuoi accessi e i tuoi veicoli facilmente dal tuo telefono.",
+    "button": {
+      "title": "Inizia",
+      "subtitle": "Introduzione"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Verifica istantanea",
+      "text": "Scansiona una targa e scopri subito se il veicolo è autorizzato. Consulta tutte le informazioni collegate in un istante."
+    },
+    "DatasPrivacy": {
+      "title": "I tuoi dati protetti",
+      "text": "Tutti i dati sono gestiti nel rispetto del GDPR. Per le informazioni personali, basta una semplice e-mail — la persona interessata riceve un link e sceglie cosa condividere. Può eliminare i propri dati in qualsiasi momento.",
+      "button": {
+        "title": "Andiamo!"
+      }
+    }
+  },
+  "option_page": {
+    "AppLanguage": {
+      "title": "Lingua dell'applicazione",
+      "description": "Scegli la lingua in cui vuoi usare l'applicazione."
+    },
+    "ParkingsList": {
+      "title": "I miei parcheggi",
+      "no_parkings_message": "Nessun parcheggio trovato. Creane uno per iniziare."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Nuovo parcheggio",
+        "edit": "Modifica parcheggio"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Nome del parcheggio",
+          "placeholder": "es. Parcheggio principale"
+        }
+      },
+      "button": {
+        "create": "Crea parcheggio"
+      },
+      "alert_message": "Eliminare '%%%'? Questa azione non può essere annullata."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Accesso alla fotocamera",
+      "description": "Gatly usa la fotocamera per scansionare le targhe in tempo reale e associarle automaticamente al tuo parcheggio.",
+      "button": {
+        "accept": "Consenti fotocamera"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Autorizzati",
+        "unknown": "Sconosciuti"
+      },
+      "search_input": {
+        "placeholder": "Targa o nome...",
+        "result_text": {
+          "query_no_result": "Nessun risultato per \"%%%\"",
+          "no_plates": "Nessuna targa registrata"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Scansiona una targa",
+      "description": "Posiziona la targa all'interno del riquadro qui sotto",
+      "footer": "Altre funzionalità in arrivo"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  "language_name": "Español",
   "GLOBAL": {
     "tab_navigation": {
       "parking_label": "Parking",
@@ -80,6 +81,10 @@
     }
   },
   "option_page": {
+    "AppLanguage": {
+      "title": "Idioma de la aplicación",
+      "description": "Elige el idioma en el que deseas usar la aplicación."
+    },
     "ParkingsList": {
       "title": "Mis parkings",
       "no_parkings_message": "No se encontraron parkings. Crea uno para empezar."

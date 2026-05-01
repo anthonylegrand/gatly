@@ -1,0 +1,141 @@
+{
+  "language_name": "Deutsch",
+  "GLOBAL": {
+    "tab_navigation": {
+      "parking_label": "Parkplatz",
+      "camera_label": "Scanner"
+    },
+    "button": {
+      "next": "Weiter",
+      "back": "Zurück",
+      "close": "Schließen",
+      "save": "Speichern",
+      "edit": "Bearbeiten",
+      "cancel": "Abbrechen",
+      "delete": "Löschen",
+      "delete_parking": "Parkplatz löschen",
+      "add_plate_to_parking": "Zum Parkplatz hinzufügen"
+    },
+    "text": {
+      "X_vehicle": "%%% Fahrzeug",
+      "X_vehicles": "%%% Fahrzeuge"
+    }
+  },
+  "COMPONENTS": {
+    "BottomSheet": {
+      "plateStatus": {
+        "notRegister": "Nicht in diesem Parkplatz registriert",
+        "authorized": "Fahrzeug zugelassen",
+        "unauthorized": "Fahrzeug nicht zugelassen"
+      },
+      "form": {
+        "authorisation": {
+          "label": "Zugelassen",
+          "description": "Zugang zu diesem Parkplatz erlauben?"
+        },
+        "authorizedUntil": {
+          "label": "Gültigkeitsdauer",
+          "description": "Bis %%%"
+        },
+        "customName": {
+          "label": "Benutzerdefinierter Name",
+          "placeholder": "z. B. Familie Müller"
+        },
+        "additionalData": {
+          "label": "Zusätzliche Informationen",
+          "placeholder": "z. B. Mieter Whg. 3B"
+        }
+      },
+      "lastScan": "Letzte Erkennung · %%%"
+    },
+    "PlateCard": {
+      "tagStatus": {
+        "authorized": "Zugelassen",
+        "unauthorized": "Nicht zugelassen"
+      },
+      "timeLeftInfo": {
+        "lastScanWas": "Gescannt %%%",
+        "willExpireIn": "Läuft ab %%%"
+      }
+    }
+  },
+  "welcome_page": {
+    "main_job": "Parking Scanner",
+    "intro": "Verwalten Sie Ihre Zugangsberechtigungen und Fahrzeuge ganz einfach von Ihrem Smartphone aus.",
+    "button": {
+      "title": "Loslegen",
+      "subtitle": "Einführung"
+    }
+  },
+  "intro_page": {
+    "AuthorisationsAndInfos": {
+      "title": "Sofortige Überprüfung",
+      "text": "Scannen Sie ein Kennzeichen und sehen Sie sofort, ob das Fahrzeug zugelassen ist. Alle verknüpften Informationen auf einen Blick."
+    },
+    "DatasPrivacy": {
+      "title": "Ihre Daten geschützt",
+      "text": "Alle Daten werden gemäß der DSGVO verwaltet. Für persönliche Informationen genügt eine einfache E-Mail — die betroffene Person erhält einen Link und entscheidet selbst, was sie teilt. Sie kann ihre Daten jederzeit löschen.",
+      "button": {
+        "title": "Los geht's"
+      }
+    }
+  },
+  "option_page": {
+    "AppLanguage": {
+      "title": "App-Sprache",
+      "description": "Wähle die Sprache, in der du die Anwendung verwenden möchtest."
+    },
+    "ParkingsList": {
+      "title": "Meine Parkplätze",
+      "no_parkings_message": "Keine Parkplätze gefunden. Erstellen Sie einen, um zu beginnen."
+    },
+    "UpsertParking": {
+      "title": {
+        "create": "Neuer Parkplatz",
+        "edit": "Parkplatz bearbeiten"
+      },
+      "inputs": {
+        "parking_name": {
+          "label": "Name des Parkplatzes",
+          "placeholder": "z. B. Hauptparkplatz"
+        }
+      },
+      "button": {
+        "create": "Parkplatz erstellen"
+      },
+      "alert_message": "'%%%' löschen? Diese Aktion kann nicht rückgängig gemacht werden."
+    }
+  },
+  "permission_page": {
+    "camera": {
+      "title": "Kamerazugriff",
+      "description": "Gatly nutzt die Kamera, um Kennzeichen in Echtzeit zu scannen und automatisch Ihrem Parkplatz zuzuordnen.",
+      "button": {
+        "accept": "Kamera erlauben"
+      }
+    }
+  },
+  "tabs_page": {
+    "parking": {
+      "list_sections": {
+        "authorized": "Zugelassen",
+        "unknown": "Unbekannt"
+      },
+      "search_input": {
+        "placeholder": "Kennzeichen oder Name...",
+        "result_text": {
+          "query_no_result": "Keine Ergebnisse für \"%%%\"",
+          "no_plates": "Keine Kennzeichen registriert"
+        }
+      }
+    },
+    "camera": {
+      "PlateIconComponent": {
+        "demoTextPlate": "ABC12X"
+      },
+      "title": "Kennzeichen scannen",
+      "description": "Positionieren Sie das Kennzeichen im Rahmen unten",
+      "footer": "Weitere Funktionen folgen in Kürze"
+    }
+  }
+}
