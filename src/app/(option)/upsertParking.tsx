@@ -15,8 +15,13 @@ export default function UpsertParkingScreen() {
   const router = useRouter();
   const theme = useTheme();
   const { id } = useLocalSearchParams<{ id?: string }>();
-  const { getParking, createParking, updateParking, removeParking } =
-    useAppStore();
+  const {
+    getParking,
+    createParking,
+    updateParking,
+    removeParking,
+    setSelectedParking,
+  } = useAppStore();
   const { t } = useTranslation();
 
   const isEditing = !!id;
@@ -40,10 +45,11 @@ export default function UpsertParkingScreen() {
         await updateParking(id, {
           name: name.trim(),
         });
+        router.dismissTo("/(option)/parkingsList");
       } else {
-        await createParking({ name: name.trim() });
+        const newParking = await createParking({ name: name.trim() });
+        setSelectedParking(newParking);
       }
-      router.dismissTo("/(option)/parkingsList");
     } finally {
       setLoading(false);
     }
@@ -86,7 +92,10 @@ export default function UpsertParkingScreen() {
               ? t("option_page.UpsertParking.title.edit")
               : t("option_page.UpsertParking.title.create")}
           </ThemedText>
-          <Pressable hitSlop={8} onPress={() => router.push("/(option)/appLanguage")}>
+          <Pressable
+            hitSlop={8}
+            onPress={() => router.push("/(option)/appLanguage")}
+          >
             <Globe size={20} color={theme.textSecondary} />
           </Pressable>
         </View>

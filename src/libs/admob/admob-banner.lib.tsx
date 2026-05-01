@@ -31,7 +31,7 @@ export function AdBanner({
   size = BannerAdSize.LARGE_ANCHORED_ADAPTIVE_BANNER,
 }: AdBannerProps) {
   const { height } = useWindowDimensions();
-  if (height < 790) size = BannerAdSize.BANNER;
+  if (height < 800) size = BannerAdSize.BANNER;
 
   return (
     <View style={{ alignItems: "center" }}>

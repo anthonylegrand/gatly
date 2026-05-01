@@ -1,10 +1,16 @@
 import { PLATE_COUNTRIES, PlateCountry } from "@/constants";
+import { getLocales } from "expo-localization";
 import i18n from "@/libs/i18n";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 export const MAX_SCANNABLE_PLATES = 5;
+
+const getDefaultPlateCountry = (): PlateCountry[] => {
+  const lang = getLocales()[0]?.languageCode?.toUpperCase() as PlateCountry;
+  return PLATE_COUNTRIES.includes(lang) ? [lang] : ["EN"];
+};
 
 type PersistantState = {
   scannablePlateCountry: PlateCountry[];
@@ -24,7 +30,7 @@ type PersistantState = {
 const usePersistantStore = create<PersistantState>()(
   persist(
     (set) => ({
-      scannablePlateCountry: PLATE_COUNTRIES,
+      scannablePlateCountry: getDefaultPlateCountry(),
       setScannablePlateCountry: (list) => set({ scannablePlateCountry: list }),
 
       scanCredits: 20,

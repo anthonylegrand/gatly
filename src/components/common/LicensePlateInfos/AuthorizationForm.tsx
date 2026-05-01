@@ -171,7 +171,7 @@ export function AuthorizationForm({
         <View style={styles.lastSeenRow}>
           <Clock size={13} color={theme.textSecondary} />
           <ThemedText type="small" themeColor="textSecondary">
-            {t("COMPONENTS.BottomSheet.lastScann").replace(
+            {t("COMPONENTS.BottomSheet.lastScan").replace(
               "%%%",
               day(lastSeen).fromNow(),
             )}

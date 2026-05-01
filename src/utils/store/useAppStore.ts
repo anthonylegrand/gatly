@@ -24,7 +24,7 @@ type AppState = {
   removePlate: (id: string) => Promise<void>;
 
   selectedParking: Parking | null;
-  setSelectedParking: (parkingId: Parking | null) => void;
+  setSelectedParking: (parking: Parking | null) => void;
 
   selectedPlate: Plate | PlateDetectionResult | null;
   setSelectedPlate: (plate: Plate | PlateDetectionResult | null) => void;
@@ -110,7 +110,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   },
 
   selectedParking: null,
-  setSelectedParking: (parkingId) => set({ selectedParking: parkingId }),
+  setSelectedParking: (parking) => set({ selectedParking: parking }),
 
   selectedPlate: null,
   setSelectedPlate: (plate) => set({ selectedPlate: plate }),
