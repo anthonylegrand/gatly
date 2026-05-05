@@ -34,7 +34,7 @@ export default function ParkingScreen() {
 
   useEffect(() => {
     loadPlates();
-  }, []);
+  }, [loadPlates]);
 
   useFocusEffect(() => {
     if (selectedParking && selectedParking.lastUsed < Date.now() - 60_000) {

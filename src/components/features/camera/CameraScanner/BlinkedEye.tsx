@@ -31,7 +31,7 @@ export default function BlinkedEye({ size = 35, color = "#FFFFFF" }: Props) {
 
     timeoutId = setTimeout(blink, 1000);
     return () => clearTimeout(timeoutId);
-  }, []);
+  }, [scaleY]);
 
   const w = size * 1.35;
   const h = size;

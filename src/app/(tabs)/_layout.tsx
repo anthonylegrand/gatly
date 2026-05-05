@@ -17,7 +17,7 @@ export default function TabLayout() {
 
   useEffect(() => {
     if (!selectedParking) router.dismissTo("/(option)/parkingsList");
-  }, [selectedParking]);
+  }, [selectedParking, router]);
 
   return (
     <>

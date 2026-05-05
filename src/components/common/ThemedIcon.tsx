@@ -36,6 +36,7 @@ export function ThemedIcon({
 }: Props) {
   const theme = useTheme();
   const iconColor = theme[color];
+  // eslint-disable-next-line import/namespace
   const Icon = LucideIcons[name] as React.ComponentType<LucideProps>;
 
   const icon = (

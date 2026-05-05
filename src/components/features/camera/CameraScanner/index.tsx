@@ -11,11 +11,12 @@ import {
   useCameraDevice,
   useFrameProcessor,
 } from "react-native-vision-camera";
-import type { ScanRegion } from "react-native-vision-camera-ocr-plus";
-import { useTextRecognition } from "react-native-vision-camera-ocr-plus";
+import {
+  useTextRecognition,
+  type ScanRegion,
+  type Text,
+} from "react-native-vision-camera-ocr-plus";
 import { Worklets } from "react-native-worklets-core";
-
-import type { Text } from "react-native-vision-camera-ocr-plus";
 
 import { PlateCountriesChip } from "@/components/features/PlateCountriesChip";
 import { ThemedText } from "@/components/ui";
@@ -82,7 +83,7 @@ export function CameraScanner() {
         }
       }
     },
-    [updatePlate, scannablePlateCountry],
+    [updatePlate, scannablePlateCountry, setSelectedPlate],
   );
 
   const handleResultOnJS = useMemo(

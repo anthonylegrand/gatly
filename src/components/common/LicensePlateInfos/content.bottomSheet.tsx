@@ -12,6 +12,7 @@ import { Alert, Pressable, StyleSheet, View } from "react-native";
 import type { Plate } from "@/../db/schema";
 import { ThemedButton, ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
+import type { PlateCountry } from "@/constants/plate.constant";
 import { useAppStore } from "@/utils/store";
 import usePersistantStore from "@/utils/store/usePersistantStore";
 import { AuthorizationForm } from "./AuthorizationForm";
@@ -37,7 +38,7 @@ export default function ContentBottomSheet() {
 
   const isDetection = selectedPlate ? !("id" in selectedPlate) : false;
   const plateString = selectedPlate?.plate ?? "";
-  const country = selectedPlate?.country ?? "";
+  const country = (selectedPlate?.country ?? "") as PlateCountry;
 
   const registeredPlate: Plate | null = useMemo(() => {
     if (!selectedPlate) return null;
@@ -80,6 +81,7 @@ export default function ContentBottomSheet() {
     setAuthorizedUntil(until);
     setDurationKey(until ? 30 : null);
     setDateConfirmed(!!until);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registeredPlateId]);
 
   if (!selectedPlate) return null;

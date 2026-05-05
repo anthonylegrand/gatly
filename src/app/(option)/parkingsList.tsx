@@ -34,11 +34,13 @@ export default function ParkingsListScreen() {
       lastParkingsLoad = now;
       loadParkings();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (parkings && !selectedParking) setSelectedParking(parkings[0]);
     if (selectedPlate) setSelectedPlate(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parkings, selectedParking]);
 
   function selectParking(parking: Parking) {

@@ -24,11 +24,11 @@ export default function Index() {
 
   useEffect(() => {
     loadParkings();
-  }, []);
+  }, [loadParkings]);
 
   useEffect(() => {
     if (!isFirstStart) router.dismissTo("/(option)/parkingsList");
-  }, [parkings.length]);
+  }, [isFirstStart, router]);
 
   if (!isFirstStart) return null;
 

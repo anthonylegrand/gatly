@@ -35,7 +35,7 @@ export default function UpsertParkingScreen() {
       if (!parking) return;
       setName(parking.name);
     });
-  }, [id]);
+  }, [id, getParking]);
 
   async function handleSave() {
     if (!name.trim()) return;

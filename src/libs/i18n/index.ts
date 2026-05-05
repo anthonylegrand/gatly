@@ -9,6 +9,7 @@ export { resources, type I18NLanguage } from "./resources";
 // Détecte la langue de l'appareil
 const deviceLanguage = getLocales()[0]?.languageCode ?? "en";
 
+// eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
   resources,
   lng: deviceLanguage,

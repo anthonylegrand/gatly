@@ -30,6 +30,7 @@ export default function LicensePlateInfos() {
       bottomSheetRef.current?.close();
       if (isLastCredit) showAd(); // Afficher à la fermeture
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPlate]);
 
   return (

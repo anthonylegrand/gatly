@@ -13,7 +13,7 @@ export default function CameraScreen() {
       if (!hasPermission) {
         router.push("/(permission)/CameraPermission");
       }
-    }, [hasPermission]),
+    }, [hasPermission, router]),
   );
 
   if (!hasPermission) return null;

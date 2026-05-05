@@ -32,6 +32,10 @@ export function useRewardedInterstitial({
   const adRef = useRef<RewardedInterstitialAd | null>(null);
   const [loaded, setLoaded] = useState(false);
   const pendingShow = useRef(false);
+  const onRewardedRef = useRef(onRewarded);
+  const onClosedRef = useRef(onClosed);
+  onRewardedRef.current = onRewarded;
+  onClosedRef.current = onClosed;
 
   useEffect(() => {
     const ad = RewardedInterstitialAd.createForAdRequest(unitId, {
@@ -53,13 +57,13 @@ export function useRewardedInterstitial({
     const unsubRewarded = ad.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
       (reward) => {
-        onRewarded?.(reward.type, reward.amount);
+        onRewardedRef.current?.(reward.type, reward.amount);
       },
     );
 
     const unsubClosed = ad.addAdEventListener(AdEventType.CLOSED, () => {
       setLoaded(false);
-      onClosed?.();
+      onClosedRef.current?.();
       ad.load();
     });
 
