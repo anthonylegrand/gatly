@@ -110,6 +110,10 @@
         "create": "Novo Parque",
         "edit": "Editar Parque"
       },
+      "description": {
+        "create": "Dê um nome ao seu novo parque",
+        "edit": "Renomeie ou atualize este parque"
+      },
       "inputs": {
         "parking_name": {
           "label": "Nome do Parque",

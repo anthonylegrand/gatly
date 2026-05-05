@@ -47,6 +47,18 @@ function extractSlots(regex: RegExp): ("L" | "D")[] {
   return slots;
 }
 
+function buildPreview(example: string, prefix: string): string {
+  let i = 0;
+  return example
+    .split("")
+    .map((ch) => {
+      if (/[A-Z]/.test(ch)) return i < prefix.length ? prefix[i++] : "X";
+      if (/\d/.test(ch)) return i < prefix.length ? prefix[i++] : "0";
+      return ch;
+    })
+    .join("");
+}
+
 function isCompatiblePrefix(country: PlateCountry, n: string): boolean {
   if (!n) return true;
   for (const { regex } of PLATE_FORMATS[country]) {
@@ -95,7 +107,7 @@ export default function ManualPlateScreen() {
     )
     .map((c) => ({
       country: c,
-      preview: EXAMPLE_PLATES[c].replace(/[A-Z]/g, "X").replace(/\d/g, "0"),
+      preview: buildPreview(EXAMPLE_PLATES[c], normalized),
     }));
 
   function handleSelect(match: PlateDetectionResult) {

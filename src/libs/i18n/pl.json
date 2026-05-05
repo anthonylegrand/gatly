@@ -110,6 +110,10 @@
         "create": "Nowy parking",
         "edit": "Edytuj parking"
       },
+      "description": {
+        "create": "Nazwij swój nowy parking",
+        "edit": "Zmień nazwę tego parkingu"
+      },
       "inputs": {
         "parking_name": {
           "label": "Nazwa parkingu",

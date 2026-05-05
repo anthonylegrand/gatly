@@ -6,7 +6,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ThemedInput } from "@/components/common/ThemedInput";
-import { ThemedButton, ThemedText } from "@/components/ui";
+import { ThemedButton, ThemedText, ThemedView } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
@@ -77,29 +77,40 @@ export default function UpsertParkingScreen() {
 
   return (
     <SafeAreaView
+      edges={["top", "bottom"]}
       style={[styles.container, { backgroundColor: theme.background }]}
     >
-      <ScrollView
-        contentContainerStyle={styles.scroll}
-        keyboardShouldPersistTaps="handled"
+      <ThemedView
+        type="primary"
+        style={[styles.header, { paddingTop: Spacing.two }]}
       >
-        <View style={styles.header}>
-          <Pressable onPress={() => router.back()} hitSlop={8}>
-            <ArrowLeft size={22} color={theme.text} />
-          </Pressable>
-          <ThemedText type="subtitle">
+        <Pressable onPress={() => router.back()} hitSlop={8}>
+          <ArrowLeft size={22} color="#fff" />
+        </Pressable>
+        <View style={styles.headerText}>
+          <ThemedText type="subtitle" style={{ color: "#fff" }}>
             {isEditing
               ? t("option_page.UpsertParking.title.edit")
               : t("option_page.UpsertParking.title.create")}
           </ThemedText>
-          <Pressable
-            hitSlop={8}
-            onPress={() => router.push("/(option)/appLanguage")}
-          >
-            <Globe size={20} color={theme.textSecondary} />
-          </Pressable>
+          <ThemedText type="small" style={{ color: "rgba(255,255,255,0.75)" }}>
+            {isEditing
+              ? t("option_page.UpsertParking.description.edit")
+              : t("option_page.UpsertParking.description.create")}
+          </ThemedText>
         </View>
+        <Pressable
+          hitSlop={8}
+          onPress={() => router.push("/(option)/appLanguage")}
+        >
+          <Globe size={20} color="rgba(255,255,255,0.75)" />
+        </Pressable>
+      </ThemedView>
 
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.section}>
           <ThemedInput
             label={t("option_page.UpsertParking.inputs.parking_name.label")}
@@ -142,13 +153,19 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: Spacing.three,
+    paddingBottom: Spacing.three,
+  },
+  headerText: {
+    flex: 1,
+    gap: 4,
   },
   section: {
     gap: Spacing.two,
   },
   footer: {
-    padding: Spacing.three,
+    paddingHorizontal: Spacing.three,
     gap: Spacing.two,
   },
   deleteButton: {

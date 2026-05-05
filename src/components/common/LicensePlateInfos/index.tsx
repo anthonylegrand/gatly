@@ -28,7 +28,10 @@ export default function LicensePlateInfos() {
       if (isLastCredit) loadAd(); // Précharger à l'ouverture
     } else {
       bottomSheetRef.current?.close();
-      if (isLastCredit) showAd(); // Afficher à la fermeture
+      if (isLastCredit) {
+        showAd();
+        addScanCredits(5);
+      } // Afficher à la fermeture & pub ou pas ne pas bloquer dans l'app
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedPlate]);

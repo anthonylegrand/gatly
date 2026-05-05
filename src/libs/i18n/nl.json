@@ -110,6 +110,10 @@
         "create": "Nieuwe parkeerplaats",
         "edit": "Parkeerplaats bewerken"
       },
+      "description": {
+        "create": "Geef uw parkeerplaats een naam",
+        "edit": "Wijzig de naam van deze parkeerplaats"
+      },
       "inputs": {
         "parking_name": {
           "label": "Naam parkeerplaats",

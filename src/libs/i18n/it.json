@@ -110,6 +110,10 @@
         "create": "Nuovo parcheggio",
         "edit": "Modifica parcheggio"
       },
+      "description": {
+        "create": "Assegna un nome al parcheggio",
+        "edit": "Modifica il nome del parcheggio"
+      },
       "inputs": {
         "parking_name": {
           "label": "Nome del parcheggio",
