@@ -95,6 +95,16 @@
       "title": "Mis parkings",
       "no_parkings_message": "No se encontraron parkings. Crea uno para empezar."
     },
+    "ManualPlate": {
+      "title": "Entrada manual",
+      "start_typing": "Introduce una matrícula manualmente",
+      "no_match": "Ningún formato reconocido",
+      "confirm": "Confirmar matrícula",
+      "section_match": "Coincidencia",
+      "section_suggestions": "Sugerencias",
+      "input_label": "Matrícula",
+      "input_hint": "Escribe sin separadores"
+    },
     "UpsertParking": {
       "title": {
         "create": "Nuevo parking",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Mis parkings",
+        "welcome_label": "Bienvenido al parking",
+        "add_plate": "Entrada manual"
+      },
       "list_sections": {
         "authorized": "Autorizados",
         "unknown": "Desconocidos"

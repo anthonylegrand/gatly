@@ -1,6 +1,6 @@
-import { useRouter } from "expo-router";
-import { ChevronDown, Globe, Search, Settings2 } from "lucide-react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { Bolt, ChevronLeft, Globe, PenBox, Search } from "lucide-react-native";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Pressable,
@@ -13,7 +13,7 @@ import {
 import { Plate } from "@/../db/schema";
 import { Spacer } from "@/components/common/Spacer";
 import { PlateCard } from "@/components/features/parking/PlateCard";
-import { ThemedText } from "@/components/ui";
+import { ThemedButton, ThemedText, ThemedView } from "@/components/ui";
 import { Spacing } from "@/constants/theme.constant";
 import { useTheme } from "@/hooks/theme/useTheme";
 import { useAppStore } from "@/utils/store";
@@ -24,22 +24,25 @@ export default function ParkingScreen() {
   const [query, setQuery] = useState("");
   const { t } = useTranslation();
 
-  const { loadPlates, plates, selectedParking, updateParking } = useAppStore();
+  const {
+    loadPlates,
+    plates,
+    selectedParking,
+    setSelectedParking,
+    updateParking,
+  } = useAppStore();
 
   useEffect(() => {
     loadPlates();
   }, []);
 
-  useEffect(
-    useCallback(() => {
-      if (!selectedParking) return;
-      const today = new Date().setHours(0, 0, 0, 0);
-      const lastDay = new Date(selectedParking.lastUsed).setHours(0, 0, 0, 0);
-      if (lastDay < today) {
-        updateParking(selectedParking.id, { lastUsed: Date.now() });
-      }
-    }, [selectedParking?.id, selectedParking?.lastUsed]),
-  );
+  useFocusEffect(() => {
+    if (selectedParking && selectedParking.lastUsed < Date.now() - 60_000) {
+      updateParking(selectedParking.id, { lastUsed: Date.now() }).then(
+        (parking) => setSelectedParking(parking),
+      );
+    }
+  });
 
   const filtered = query.trim()
     ? plates.filter(
@@ -53,59 +56,82 @@ export default function ParkingScreen() {
   const unknown = filtered.filter((p: Plate) => p.isAuthorized !== true);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Pressable
-          onPress={() => router.push("/(option)/parkingsList")}
-          style={styles.parkingSelector}
-        >
-          <View>
-            <ThemedText type="subtitle">{selectedParking?.name}</ThemedText>
-            <ThemedText type="small" themeColor="textSecondary">
-              {t(
-                plates.length > 1
-                  ? "GLOBAL.text.X_vehicles"
-                  : "GLOBAL.text.X_vehicle",
-              ).replace("%%%", plates.length.toString())}
+    <ThemedView style={styles.container}>
+      <ThemedView type="primary" style={styles.header}>
+        <View style={styles.headerTop}>
+          <Pressable
+            onPress={() => router.push("/(option)/parkingsList")}
+            style={styles.parkingSelector}
+          >
+            <ChevronLeft size={16} color="rgba(255,255,255,0.7)" />
+            <ThemedText type="small" style={{ color: "rgba(255,255,255,0.7)", fontSize: 13 }}>
+              {t("tabs_page.parking.header.parking_list_link")}
             </ThemedText>
+          </Pressable>
+          <View style={styles.headerActions}>
+            <Pressable
+              hitSlop={8}
+              onPress={() => router.push("/(option)/appLanguage")}
+            >
+              <Globe size={20} color="rgba(255,255,255,0.75)" />
+            </Pressable>
+            <Pressable
+              hitSlop={8}
+              onPress={() =>
+                router.push({
+                  pathname: "/(option)/upsertParking",
+                  params: { id: selectedParking?.id },
+                })
+              }
+            >
+              <Bolt size={20} color="rgba(255,255,255,0.75)" />
+            </Pressable>
           </View>
-          <ChevronDown size={16} color={theme.textSecondary} />
-        </Pressable>
-        <View style={styles.headerActions}>
-          <Pressable
-            hitSlop={8}
-            onPress={() => router.push("/(option)/appLanguage")}
-          >
-            <Globe size={20} color={theme.textSecondary} />
-          </Pressable>
-          <Pressable
-            hitSlop={8}
-            onPress={() =>
-              router.push({
-                pathname: "/(option)/upsertParking",
-                params: { id: selectedParking?.id },
-              })
-            }
-          >
-            <Settings2 size={20} color={theme.textSecondary} />
-          </Pressable>
         </View>
+
+        <View style={styles.headerContent}>
+          <ThemedText type="small" style={{ color: "rgba(255,255,255,0.65)", fontWeight: "400" }}>
+            {t("tabs_page.parking.header.welcome_label")}
+          </ThemedText>
+          <ThemedText style={{ color: "#FFFFFF", fontSize: 30, fontWeight: "700", lineHeight: 36 }}>
+            {selectedParking?.name}
+          </ThemedText>
+          <ThemedText type="small" style={{ color: "rgba(255,255,255,0.65)" }}>
+            {t(
+              plates.length > 1
+                ? "GLOBAL.text.X_vehicles"
+                : "GLOBAL.text.X_vehicle",
+            ).replace("%%%", plates.length.toString())}
+          </ThemedText>
+        </View>
+      </ThemedView>
+
+      <View style={styles.addButtonWrapper}>
+        <ThemedView style={{ borderRadius: Spacing.two }}>
+          <ThemedButton
+            variant="ghost"
+            icon={PenBox}
+            onPress={() => router.push("/(option)/manualPlate")}
+            style={[
+              styles.addButton,
+              { backgroundColor: theme.backgroundSheet },
+            ]}
+          >
+            {t("tabs_page.parking.header.add_plate")}
+          </ThemedButton>
+        </ThemedView>
       </View>
 
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={{
           gap: Spacing.two,
+          paddingTop: Spacing.four,
           paddingBottom: Spacing.four,
         }}
         keyboardShouldPersistTaps="handled"
       >
-        <View
-          style={[
-            styles.searchBar,
-            { backgroundColor: theme.backgroundElement },
-          ]}
-        >
+        <ThemedView type="backgroundElement" style={styles.searchBar}>
           <Search size={16} color={theme.textSecondary} />
           <TextInput
             value={query}
@@ -116,7 +142,7 @@ export default function ParkingScreen() {
             autoCapitalize="characters"
             clearButtonMode="while-editing"
           />
-        </View>
+        </ThemedView>
 
         <Spacer size={Spacing.two} />
 
@@ -167,7 +193,7 @@ export default function ParkingScreen() {
           </ThemedText>
         )}
       </ScrollView>
-    </View>
+    </ThemedView>
   );
 }
 
@@ -176,25 +202,44 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    paddingHorizontal: Spacing.three,
+    paddingTop: Spacing.three,
+    paddingBottom: Spacing.five + Spacing.two,
+  },
+  headerTop: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.two,
+    marginBottom: Spacing.four,
   },
   parkingSelector: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.one,
   },
-  scroll: {
-    flex: 1,
-    paddingHorizontal: Spacing.three,
+  headerContent: {
+    gap: 2,
   },
   headerActions: {
     flexDirection: "row",
     alignItems: "center",
     gap: Spacing.three,
+  },
+  addButtonWrapper: {
+    marginTop: -22,
+    paddingHorizontal: Spacing.three,
+    zIndex: 10,
+  },
+  addButton: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  scroll: {
+    flex: 1,
+    paddingHorizontal: Spacing.three,
   },
   searchBar: {
     flexDirection: "row",

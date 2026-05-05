@@ -95,6 +95,16 @@
       "title": "Mijn parkeerplaatsen",
       "no_parkings_message": "Geen parkeerplaatsen gevonden. Maak er een aan om te beginnen."
     },
+    "ManualPlate": {
+      "title": "Handmatige invoer",
+      "start_typing": "Voer handmatig een kenteken in",
+      "no_match": "Geen formaat herkend",
+      "confirm": "Kenteken bevestigen",
+      "section_match": "Overeenkomst",
+      "section_suggestions": "Suggesties",
+      "input_label": "Kenteken",
+      "input_hint": "Invoer zonder scheidingstekens"
+    },
     "UpsertParking": {
       "title": {
         "create": "Nieuwe parkeerplaats",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Mijn parkeerplaatsen",
+        "welcome_label": "Welkom bij parkeerplaats",
+        "add_plate": "Handmatige invoer"
+      },
       "list_sections": {
         "authorized": "Toegestaan",
         "unknown": "Onbekend"

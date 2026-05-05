@@ -95,6 +95,16 @@
       "title": "Mes parkings",
       "no_parkings_message": "Aucun parking trouvé. Créez-en un pour commencer."
     },
+    "ManualPlate": {
+      "title": "Saisie manuelle",
+      "start_typing": "Saisissez une plaque manuellement",
+      "no_match": "Aucun format reconnu",
+      "confirm": "Confirmer la plaque",
+      "section_match": "Correspondance",
+      "section_suggestions": "Suggestions",
+      "input_label": "Plaque d'immatriculation",
+      "input_hint": "Saisie sans séparateurs"
+    },
     "UpsertParking": {
       "title": {
         "create": "Nouveau parking",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Mes parkings",
+        "welcome_label": "Bienvenue sur le parking",
+        "add_plate": "Saisie manuelle"
+      },
       "list_sections": {
         "authorized": "Autorisés",
         "unknown": "Inconnus"

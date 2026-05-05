@@ -1,8 +1,7 @@
-import { useIsFocused, useRouter } from "expo-router";
-import { SlidersHorizontal } from "lucide-react-native";
+import { useIsFocused } from "expo-router";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Dimensions, Pressable, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -18,6 +17,7 @@ import { Worklets } from "react-native-worklets-core";
 
 import type { Text } from "react-native-vision-camera-ocr-plus";
 
+import { PlateCountriesChip } from "@/components/features/PlateCountriesChip";
 import { ThemedText } from "@/components/ui";
 import { Colors, Spacing } from "@/constants";
 import { AdBanner } from "@/libs/admob/admob-banner.lib";
@@ -34,11 +34,6 @@ const SCAN_REGION: ScanRegion = {
   height: "80%",
 };
 
-const COUNTRY_FLAGS: Record<string, string> = {
-  FR: "🇫🇷", EN: "🇬🇧", ES: "🇪🇸", DE: "🇩🇪",
-  NL: "🇳🇱", IT: "🇮🇹", PL: "🇵🇱", CH: "🇨🇭", BE: "🇧🇪", LU: "🇱🇺", PT: "🇵🇹",
-};
-
 const FRAME_SKIP_THRESHOLD = 30;
 const CAMERA_WIDTH = Dimensions.get("window").width * 0.85;
 const CAMERA_HEIGHT = CAMERA_WIDTH / 2.5;
@@ -51,7 +46,6 @@ export function CameraScanner() {
   const { scannablePlateCountry } = usePersistantStore();
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const router = useRouter();
 
   const hasPlate = useRef(Worklets.createSharedValue(false));
   const platesRef = useRef(plates);
@@ -143,16 +137,7 @@ export function CameraScanner() {
           {t("tabs_page.camera.footer")}
         </ThemedText>
 
-        <Pressable
-          style={styles.countriesChip}
-          onPress={() => router.push("/(option)/scannablePlates")}
-          hitSlop={8}
-        >
-          <ThemedText style={styles.chipFlags}>
-            {scannablePlateCountry.map((c) => COUNTRY_FLAGS[c]).join("  ")}
-          </ThemedText>
-          <SlidersHorizontal size={14} color="rgba(255,255,255,0.6)" />
-        </Pressable>
+        <PlateCountriesChip variant="camera" />
       </View>
     </SafeAreaView>
   );

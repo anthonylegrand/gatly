@@ -95,6 +95,16 @@
       "title": "Os Meus Parques",
       "no_parkings_message": "Nenhum parque encontrado. Crie um para começar."
     },
+    "ManualPlate": {
+      "title": "Introdução manual",
+      "start_typing": "Introduza uma matrícula manualmente",
+      "no_match": "Nenhum formato reconhecido",
+      "confirm": "Confirmar matrícula",
+      "section_match": "Correspondência",
+      "section_suggestions": "Sugestões",
+      "input_label": "Matrícula",
+      "input_hint": "Introduza sem separadores"
+    },
     "UpsertParking": {
       "title": {
         "create": "Novo Parque",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Os meus estacionamentos",
+        "welcome_label": "Bem-vindo ao estacionamento",
+        "add_plate": "Introdução manual"
+      },
       "list_sections": {
         "authorized": "Autorizado",
         "unknown": "Desconhecido"

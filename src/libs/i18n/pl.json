@@ -95,6 +95,16 @@
       "title": "Moje parkingi",
       "no_parkings_message": "Nie znaleziono parkingów. Utwórz jeden, aby zacząć."
     },
+    "ManualPlate": {
+      "title": "Ręczne wprowadzanie",
+      "start_typing": "Wprowadź tablicę rejestracyjną ręcznie",
+      "no_match": "Nie rozpoznano formatu",
+      "confirm": "Potwierdź tablicę",
+      "section_match": "Dopasowanie",
+      "section_suggestions": "Sugestie",
+      "input_label": "Tablica rejestracyjna",
+      "input_hint": "Wpisz bez separatorów"
+    },
     "UpsertParking": {
       "title": {
         "create": "Nowy parking",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Moje parkingi",
+        "welcome_label": "Witaj na parkingu",
+        "add_plate": "Ręczne wprowadzanie"
+      },
       "list_sections": {
         "authorized": "Dozwolone",
         "unknown": "Nieznane"

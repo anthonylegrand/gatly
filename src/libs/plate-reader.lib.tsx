@@ -1,6 +1,5 @@
 import {
-  PLATE_FORMATS,
-  RECONSTRUCT,
+  reconstruct,
   type PlateCountry,
 } from "@/constants/plate.constant";
 
@@ -23,10 +22,8 @@ export function detectPlate(
   const n = normalize(text);
   const results: PlateDetectionResult[] = [];
   for (const country of countries) {
-    const candidate = RECONSTRUCT[country](n);
-    if (candidate && PLATE_FORMATS[country].test(candidate)) {
-      results.push({ country, plate: candidate });
-    }
+    const plate = reconstruct(country, n);
+    if (plate) results.push({ country, plate });
   }
   return results;
 }

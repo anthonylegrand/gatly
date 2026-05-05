@@ -95,6 +95,16 @@
       "title": "I miei parcheggi",
       "no_parkings_message": "Nessun parcheggio trovato. Creane uno per iniziare."
     },
+    "ManualPlate": {
+      "title": "Inserimento manuale",
+      "start_typing": "Inserisci manualmente una targa",
+      "no_match": "Nessun formato riconosciuto",
+      "confirm": "Conferma targa",
+      "section_match": "Corrispondenza",
+      "section_suggestions": "Suggerimenti",
+      "input_label": "Targa",
+      "input_hint": "Inserisci senza separatori"
+    },
     "UpsertParking": {
       "title": {
         "create": "Nuovo parcheggio",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "I miei parcheggi",
+        "welcome_label": "Benvenuto nel parcheggio",
+        "add_plate": "Inserimento manuale"
+      },
       "list_sections": {
         "authorized": "Autorizzati",
         "unknown": "Sconosciuti"

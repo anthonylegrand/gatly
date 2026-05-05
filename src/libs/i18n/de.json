@@ -95,6 +95,16 @@
       "title": "Meine Parkplätze",
       "no_parkings_message": "Keine Parkplätze gefunden. Erstellen Sie einen, um zu beginnen."
     },
+    "ManualPlate": {
+      "title": "Manuelle Eingabe",
+      "start_typing": "Kennzeichen manuell eingeben",
+      "no_match": "Kein Format erkannt",
+      "confirm": "Kennzeichen bestätigen",
+      "section_match": "Übereinstimmung",
+      "section_suggestions": "Vorschläge",
+      "input_label": "Kennzeichen",
+      "input_hint": "Ohne Trennzeichen eingeben"
+    },
     "UpsertParking": {
       "title": {
         "create": "Neuer Parkplatz",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "Meine Parkplätze",
+        "welcome_label": "Willkommen auf Parkplatz",
+        "add_plate": "Manuelle Eingabe"
+      },
       "list_sections": {
         "authorized": "Zugelassen",
         "unknown": "Unbekannt"

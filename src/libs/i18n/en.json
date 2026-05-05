@@ -95,6 +95,16 @@
       "title": "My Parkings",
       "no_parkings_message": "No parkings found. Create one to get started."
     },
+    "ManualPlate": {
+      "title": "Manual entry",
+      "start_typing": "Enter a plate number manually",
+      "no_match": "No format recognised",
+      "confirm": "Confirm plate",
+      "section_match": "Match",
+      "section_suggestions": "Suggestions",
+      "input_label": "Registration plate",
+      "input_hint": "Type without separators"
+    },
     "UpsertParking": {
       "title": {
         "create": "New Parking",
@@ -123,6 +133,11 @@
   },
   "tabs_page": {
     "parking": {
+      "header": {
+        "parking_list_link": "My parkings",
+        "welcome_label": "Welcome to parking",
+        "add_plate": "Manual entry"
+      },
       "list_sections": {
         "authorized": "Authorized",
         "unknown": "Unknown"

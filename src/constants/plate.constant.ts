@@ -1,3 +1,5 @@
+import RandExp from "randexp";
+
 import { resources, type I18NLanguage } from "@/libs/i18n/resources";
 
 type I18NPlateCountry = Uppercase<I18NLanguage>;
@@ -14,90 +16,58 @@ export const PLATE_COUNTRIES: PlateCountry[] = [
   ...EXTRA_PLATE_COUNTRIES,
 ];
 
-export const PLATE_FORMATS: Record<PlateCountry, RegExp> = {
-  FR: /^[A-HJ-NP-TV-Z]{2}-\d{3}-[A-HJ-NP-TV-Z]{2}$/,
-  EN: /^[A-Z]{2}\d{2} [A-Z]{3}$/,
-  ES: /^\d{4}[A-Z]{3}$/,
-  DE: /^[A-Z]{1,3}-[A-Z]{1,2}-\d{1,4}$/,
-  NL: /^[A-Z]{2}-\d{3}-[A-Z]$/,
-  IT: /^[A-Z]{2}\d{3}[A-Z]{2}$/,
-  PL: /^[A-Z]{2} \d{5}$/,
-  CH: /^[A-Z]{2}\d{1,6}$/,
-  BE: /^[1-9]-[A-Z]{3}-\d{3}$/,
-  LU: /^[A-Z]{2}\d{4}$/,
-  PT: /^([A-Z]{2}-\d{2}-\d{2}|\d{2}-[A-Z]{2}-\d{2}|\d{2}-\d{2}-[A-Z]{2})$/,
+export type PlateFormat = {
+  regex: RegExp;
+  connectors: string[];
 };
 
-export const RECONSTRUCT: Record<PlateCountry, (n: string) => string | null> = {
-  FR: (n) =>
-    n.length === 7
-      ? `${n.slice(0, 2)}-${n.slice(2, 5)}-${n.slice(5, 7)}`
-      : null,
-  EN: (n) =>
-    n.length === 7
-      ? `${n.slice(0, 2)}${n.slice(2, 4)} ${n.slice(4, 7)}`
-      : null,
-  ES: (n) => (n.length === 7 ? n : null),
-  DE: (n) => (n.length >= 4 && n.length <= 8 ? n : null),
-  NL: (n) =>
-    n.length === 6
-      ? `${n.slice(0, 2)}-${n.slice(2, 5)}-${n[5]}`
-      : null,
-  IT: (n) => (n.length === 7 ? n : null),
-  PL: (n) =>
-    n.length === 7 ? `${n.slice(0, 2)} ${n.slice(2, 7)}` : null,
-  CH: (n) => (n.length >= 3 && n.length <= 8 ? n : null),
-  BE: (n) =>
-    n.length === 7 ? `${n[0]}-${n.slice(1, 4)}-${n.slice(4, 7)}` : null,
-  LU: (n) => (n.length === 6 ? n : null),
-  PT: (n) =>
-    n.length === 6
-      ? `${n.slice(0, 2)}-${n.slice(2, 4)}-${n.slice(4, 6)}`
-      : null,
+export const PLATE_FORMATS: Record<PlateCountry, PlateFormat[]> = {
+  FR: [{ regex: /^([A-HJ-NP-TV-Z]{2})(\d{3})([A-HJ-NP-TV-Z]{2})$/, connectors: ["-", "-"] }],
+  EN: [{ regex: /^([A-Z]{2})(\d{2})([A-Z]{3})$/, connectors: ["", " "] }],
+  ES: [{ regex: /^(\d{4})([A-Z]{3})$/, connectors: [""] }],
+  DE: [{ regex: /^([A-Z]{1,3})([A-Z]{1,2})(\d{1,4})$/, connectors: ["-", "-"] }],
+  NL: [{ regex: /^([A-Z]{2})(\d{3})([A-Z])$/, connectors: ["-", "-"] }],
+  IT: [{ regex: /^([A-Z]{2})(\d{3})([A-Z]{2})$/, connectors: ["", ""] }],
+  PL: [{ regex: /^([A-Z]{2})(\d{5})$/, connectors: [" "] }],
+  CH: [{ regex: /^([A-Z]{2})(\d{1,6})$/, connectors: [""] }],
+  BE: [{ regex: /^([1-9])([A-Z]{3})(\d{3})$/, connectors: ["-", "-"] }],
+  LU: [{ regex: /^([A-Z]{2})(\d{4})$/, connectors: [""] }],
+  PT: [
+    { regex: /^(\d{2})(\d{2})([A-Z]{2})$/, connectors: ["-", "-"] },
+    { regex: /^([A-Z]{2})(\d{2})(\d{2})$/, connectors: ["-", "-"] },
+    { regex: /^(\d{2})([A-Z]{2})(\d{2})$/, connectors: ["-", "-"] },
+  ],
 };
 
-const FR_LETTERS = "ABCDEFGHJKLMNPQRSTVWXYZ";
-const ALL_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-const rndChar = (charset: string) =>
-  charset[Math.floor(Math.random() * charset.length)];
-const rndInt = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
-const rndStr = (charset: string, len: number) =>
-  Array.from({ length: len }, () => rndChar(charset)).join("");
-
-const assertNever = (x: never): never => {
-  throw new Error(`Unhandled PlateCountry: ${x}`);
+export const COUNTRY_META: Record<PlateCountry, { flag: string; name: string }> = {
+  FR: { flag: "🇫🇷", name: "France" },
+  EN: { flag: "🇬🇧", name: "United Kingdom" },
+  ES: { flag: "🇪🇸", name: "España" },
+  DE: { flag: "🇩🇪", name: "Deutschland" },
+  NL: { flag: "🇳🇱", name: "Nederland" },
+  IT: { flag: "🇮🇹", name: "Italia" },
+  PL: { flag: "🇵🇱", name: "Polska" },
+  CH: { flag: "🇨🇭", name: "Schweiz" },
+  BE: { flag: "🇧🇪", name: "Belgique" },
+  LU: { flag: "🇱🇺", name: "Luxembourg" },
+  PT: { flag: "🇵🇹", name: "Portugal" },
 };
 
-export function generateFakePlate(country: PlateCountry): string {
-  switch (country) {
-    case "FR":
-      return `${rndStr(FR_LETTERS, 2)}-${String(rndInt(1, 999)).padStart(3, "0")}-${rndStr(FR_LETTERS, 2)}`;
-    case "EN":
-      return `${rndStr(ALL_LETTERS, 2)}${String(rndInt(0, 99)).padStart(2, "0")} ${rndStr(ALL_LETTERS, 3)}`;
-    case "ES":
-      return `${String(rndInt(0, 9999)).padStart(4, "0")}${rndStr(ALL_LETTERS, 3)}`;
-    case "DE": {
-      const city = rndStr(ALL_LETTERS, rndInt(1, 3));
-      const id = rndStr(ALL_LETTERS, rndInt(1, 2));
-      return `${city}-${id}-${rndInt(1, 9999)}`;
-    }
-    case "NL":
-      return `${rndStr(ALL_LETTERS, 2)}-${String(rndInt(0, 999)).padStart(3, "0")}-${rndChar(ALL_LETTERS)}`;
-    case "IT":
-      return `${rndStr(ALL_LETTERS, 2)}${String(rndInt(0, 999)).padStart(3, "0")}${rndStr(ALL_LETTERS, 2)}`;
-    case "PL":
-      return `${rndStr(ALL_LETTERS, 2)} ${String(rndInt(0, 99999)).padStart(5, "0")}`;
-    case "CH":
-      return `${rndStr(ALL_LETTERS, 2)}${rndInt(1, 999999)}`;
-    case "BE":
-      return `${rndInt(1, 9)}-${rndStr(ALL_LETTERS, 3)}-${String(rndInt(0, 999)).padStart(3, "0")}`;
-    case "LU":
-      return `${rndStr(ALL_LETTERS, 2)}${String(rndInt(0, 9999)).padStart(4, "0")}`;
-    case "PT":
-      return `${String(rndInt(0, 99)).padStart(2, "0")}-${String(rndInt(0, 99)).padStart(2, "0")}-${rndStr(ALL_LETTERS, 2)}`;
-    default:
-      return assertNever(country);
+export function reconstruct(country: PlateCountry, text: string): string | null {
+  for (const { regex, connectors } of PLATE_FORMATS[country]) {
+    const match = text.match(regex);
+    if (!match) continue;
+    const groups = match.slice(1);
+    let result = groups[0];
+    for (let i = 1; i < groups.length; i++) result += (connectors[i - 1] ?? "") + groups[i];
+    return result;
   }
+  return null;
 }
+
+export const EXAMPLE_PLATES: Record<PlateCountry, string> = Object.fromEntries(
+  PLATE_COUNTRIES.map((c) => {
+    const raw = new RandExp(PLATE_FORMATS[c][0].regex).gen();
+    return [c, reconstruct(c, raw) ?? raw];
+  }),
+) as Record<PlateCountry, string>;
